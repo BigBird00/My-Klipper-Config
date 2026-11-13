@@ -1,0 +1,48 @@
+[gcode_macro __CFG_MARKER_power_loss_recovery_alt]
+gcode:
+    RESPOND PREFIX="CFG" MSG="Loaded: power_loss_recovery_alt.cfg"
+
+[gcode_macro GLOBAL_STORAGE]
+variable_totallayers: 0
+gcode:
+    M117 Global storage ready
+
+[gcode_macro TEST_TOTAL]
+gcode:
+    RESPOND MSG="from TEST_TOTAL={printer['gcode_macro GLOBAL_STORAGE'].totallayers}"
+
+
+[gcode_macro PLR_END_PRINT]
+description: print end cleanup
+gcode:
+    RESPOND MSG="PLR_END_PRINT"
+
+[gcode_macro SET_PLR_NEW_FILE]
+description: layer change
+gcode:
+#     G31
+#    RESPOND MSG="going to call save_last_file"
+#    save_last_file
+#    SAVE_VARIABLE VARIABLE=was_interrupted VALUE=True
+#    SET_GCODE_VARIABLE VARIABLE=is_active VALUE=True
+
+
+
+
+[gcode_macro LAYER_STATS]
+variable_last_time: 0
+variable_times: ""
+gcode:
+
+[gcode_macro PLR_SAVE_PRINT_STATE_WITH_LAYER]
+description: layer change
+gcode:
+    {% set layer = params.L|default(0)|int %}
+    {% set display_layer = layer + 1 %}
+
+    {% set Z = params.Z|default(0)|float %}
+
+    {% set TotLayers1 = printer["gcode_macro GLOBAL_STORAGE"].totallayers %}
+    {% set display_total_layers = TotLayers1 + 1 %}
+
+    RESPOND MSG="(alt) Layer Change: {display_layer}/{display_total_layers} Z:{Z}"

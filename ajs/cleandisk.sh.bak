@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Function for human readable output
+human() {
+    local n=$1
+    if (( n >= 1024*1024 )); then
+        printf "%.2f GB" "$(echo "$n / 1024 / 1024" | bc -l)"
+    elif (( n >= 1024 )); then
+        printf "%.2f MB" "$(echo "$n / 1024" | bc -l)"
+    else
+        printf "%'d KB" "$n"
+    fi
+}
+
+echo "Measuring disk space before cleanup..."
+start_usage=$(df --output=used / | tail -1)
+
+# Run cleanup tasks silently
+echo "Running cleanup tasks..."
+echo "  aptautoremove"
+sudo apt autoremove --purge -y > /dev/null 2>&1
+echo "  aptclean"
+sudo apt clean > /dev/null 2>&1
+echo "  ournalctl"
+sudo journalctl --vacuum-time=1d > /dev/null 2>&1
+echo "  /var/log"
+sudo find /var/log -type f -mtime +1 -delete > /dev/null 2>&1
+sudo rm -rf /var/log/*
+sudo rm -rf /var/log/.*
+echo "  Cache"
+sudo rm -rf /root/.cache/*
+rm -rf ~/.cache/*
+echo "  gcodes"
+find ~/printer_data/gcodes -type f -mtime +3 -delete ; \
+rm -rf ~/printer_data/gcodes/.thumbs/* ; \
+find ~/printer_data/logs -type f -name "*.log*" -delete ; \
+rm -f ~/printer_data/database/job_history.json ; \
+rm -f ~/printer_data/database/job_queue.json ; \
+rm -rf ~/printer_data/config/.mainsail/* ; \
+echo "  Mainsail error and access logs"
+sudo truncate -s 0 /var/log/nginx/mainsail-access.log
+sudo truncate -s 0 /var/log/nginx/mainsail-error.log
+
+
+
+
+
+
+
+echo "Measuring disk space after cleanup..."
+end_usage=$(df --output=used / | tail -1)
+
+# Calculate final totals
+totalfreed=$((start_usage - end_usage))
+
+echo "----------------------------------------"
+printf "        Disk space before: %'15d KB\n" "$start_usage"
+printf "         Disk space after: %'15d KB\n" "$end_usage"
+echo "----------------------------------------"
+printf "        Total space freed: %'15d KB (%s)\n" "$totalfreed" "$(human "$totalfreed")"
+echo "----------------------------------------"
+
+echo ""
+echo "Showing 15 largest directories..."
+sudo du -xh --max-depth=1 . \
+  --exclude=./lib \
+  --exclude=./spool \
+  | sort -h \
+  | tail -15
+
+
+#sudo du -ah / 2>/dev/null | sort -rh | head -n 15
+
+
+echo "Complete"

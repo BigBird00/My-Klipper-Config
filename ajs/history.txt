@@ -1,0 +1,1000 @@
+  988  ls -l /etc/systemd/system/klipper.service.dls -l /etc/systemd/system/klipper.service.d
+  989  sudo nano /etc/systemd/system/klipper.service
+  990  sudo rm /etc/systemd/system/klipper.service
+  991  sudo systemctl daemon-reload
+  992  kiauh
+  993  sudo systemctl restart klipper
+  994  sudo systemctl daemon-reload
+  995  sudo systemctl restart klipper
+  996  kiauh
+  997  sudo systemctl status klipper
+  998  ps -ef | grep klippy
+  999  sudo nano /etc/systemd/system/klipper.service
+ 1000  sudo rm /etc/systemd/system/klipper.service
+ 1001  sudo rm -r /etc/systemd/system/klipper.service.d
+ 1002  sudo rm /etc/systemd/system/klipper.service
+ 1003  sudo systemctl daemon-reload
+ 1004  kiauh
+ 1005  sudo systemctl status klipper
+ 1006  sudo nano /etc/systemd/system/klipper.service
+ 1007  sudo rm /etc/systemd/system/klipper.service
+ 1008  sudo rm -r /etc/systemd/system/klipper.service.d
+ 1009  sudo systemctl daemon-reload
+ 1010  kiauh
+ 1011  sudo systemctl status klipper
+ 1012  sudo nano /etc/systemd/system/klipper.service
+ 1013  ps -ef | grep klippy
+ 1014  sudo kill 231302
+ 1015  ps -ef | grep klippy
+ 1016  kiauh
+ 1017  sudo systemctl status klipper
+ 1018  sudo systemctl stop klipper
+ 1019  mv /home/ajs/klipper /home/ajs/klipper_old
+ 1020  kiauh
+ 1021  sudo systemctl status klipper
+ 1022  grep -i version /home/ajs/printer_data/logs/klippy.log | head
+ 1023  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1024  kiauh
+ 1025  ls /home/ajs/klipper/klippy/extras | grep gcode
+ 1026  sudo systemctl stop klipper
+ 1027  kiauh
+ 1028  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1029  /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/scripts/install-moonraker.sh -f
+ 1030  bash /home/ajs/moonraker/scripts/install-moonraker.sh -f
+ 1031  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1032  bash ~/moonraker/scripts/install-moonraker.sh -f
+ 1033  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1034  grep -R "klipper" -n ~/moonraker/moonraker.conf
+ 1035  find ~ -maxdepth 2 -type d -name "moonraker" 2>/dev/null
+ 1036  find ~ -maxdepth 3 -type f -name "app.py" | grep moonraker
+ 1037  sudo systemctl stop klipper
+ 1038  mv /home/ajs/moonraker /home/ajs/moonraker_old
+ 1039  kiauh
+ 1040  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1041  find /home/ajs -type f -name "moonraker.conf" 2>/dev/null
+ 1042  grep -i klipper_repo -n /home/ajs/printer_data/config/moonraker.conf
+ 1043  nano /home/ajs/printer_data/config/moonraker.conf
+ 1044  bash ~/moonraker/scripts/install-moonraker.sh -f
+ 1045  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1046  find /home/ajs -maxdepth 3 -type f -name "klippy.py" 2>/dev/null
+ 1047  sudo systemctl cat klipper
+ 1048  nano /home/ajs/printer_data/config/moonraker.conf
+ 1049  sudo find / -type f -name "app.py" 2>/dev/null | grep moonraker
+ 1050  sudo systemctl status moonraker
+ 1051  sudo systemctl stop moonraker
+ 1052  mv /home/ajs/moonraker /home/ajs/moonraker_old 2>/dev/null
+ 1053  mv /home/ajs/moonraker-env /home/ajs/moonraker-env_old 2>/dev/null
+ 1054  kiauh
+ 1055  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1056  curl -s http://localhost:7125/server/files/list | jq
+ 1057  curl -s http://localhost:7125/server/info | jq
+ 1058  nano /home/ajs/printer_data/config/moonraker.conf
+ 1059  sudo systemctl restart moonraker
+ 1060  curl -s http://localhost:7125/server/info | jq
+ 1061  nano /home/ajs/printer_data/config/moonraker.conf
+ 1062  sudo systemctl restart moonraker
+ 1063  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1064  cat /home/ajs/printer_data/systemd/klipper.env
+ 1065  curl -s http://localhost:7125/server/info
+ 1066  sudo systemctl stop moonraker
+ 1067  cd ~/moonraker
+ 1068  git fetch
+ 1069  git reset --hard origin/master
+ 1070  ~/moonraker-env/bin/pip install -r requirements.txt
+ 1071  sudo systemctl start moonraker
+ 1072  sudo systemctl stop moonraker
+ 1073  mv ~/moonraker ~/moonraker_old 2>/dev/null
+ 1074  mv ~/moonraker-env ~/moonraker-env_old 2>/dev/null
+ 1075  kiauh
+ 1076  sudo rm -rf /home/ajs/moonraker
+ 1077  sudo rm -rf ~/moonraker-env
+ 1078  kiauh
+ 1079  cd..
+ 1080  cd ..
+ 1081  kiauh
+ 1082  [200~ls /home/ajs/klipper/klippy/extras | grep shell
+ 1083  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1084  sudo rm -rf /home/ajs/moonraker
+ 1085  sudo rm -rf /home/ajs/moonraker-env
+ 1086  ls -ld /home/ajs/moonraker
+ 1087  ls -ld /home/ajs/moonraker-env
+ 1088  pwd
+ 1089  kiauh
+ 1090  ls /home/ajs/klipper/klippy/extras | grep shell
+ 1091  ls -ld ~/moonraker
+ 1092  ls -ld ~/moonraker-env
+ 1093  ls -ld ~/moonraker
+ 1094  ls -ld ~/moonraker-env
+ 1095  sudo systemctl stop klipper
+ 1096  sudo systemctl stop moonraker
+ 1097  sudo systemctl stop mainsail
+ 1098  sudo rm -rf ~/klipper
+ 1099  sudo rm -rf ~/moonraker
+ 1100  sudo rm -rf ~/moonraker-env
+ 1101  sudo rm -rf ~/mainsail
+ 1102  sudo rm -rf ~/mainsail-config
+ 1103  sudo rm -f /etc/systemd/system/klipper.service
+ 1104  sudo rm -f /etc/systemd/system/moonraker.service
+ 1105  sudo rm -f /etc/systemd/system/mainsail.service
+ 1106  sudo systemctl daemon-reload
+ 1107  sf klipper
+ 1108  sudo rm -rf /home/ajs/moonraker_old
+ 1109  sudo rm -rf /home/ajs/kiauh/kiauh/components/klipper
+ 1110  sf mainsail
+ 1111  sudo rm -f /etc/nginx/sites-enabled/mainsail
+ 1112  sudo rm -f /etc/nginx/sites-available/mainsail
+ 1113  sf moonraker
+ 1114  sudo rm -rf /home/ajs/kiauh/kiauh/components/moonraker
+ 1115  cd kiauh
+ 1116  cd components
+ 1117  ls
+ 1118  sudo rm -rf /home/ajs/kiauh/kiauh/components/*
+ 1119  ls
+ 1120  sudo rm -rf /home/ajs/kiauh/kiauh/components
+ 1121  sudo systemctl stop klipper
+ 1122  sudo systemctl stop moonraker
+ 1123  sudo systemctl stop mainsail
+ 1124  sudo systemctl stop nginx
+ 1125  sudo rm -rf ~/klipper
+ 1126  sudo rm -rf ~/moonraker
+ 1127  sudo rm -rf ~/moonraker-env
+ 1128  sudo rm -rf ~/moonraker_old
+ 1129  sudo rm -rf ~/mainsail
+ 1130  sudo rm -rf ~/mainsail-config
+ 1131  sudo rm -rf ~/kiauh/kiauh/components
+ 1132  sudo rm -f /etc/nginx/sites-enabled/mainsail
+ 1133  sudo rm -f /etc/nginx/sites-available/mainsail
+ 1134  sudo rm -f /etc/systemd/system/klipper.service
+ 1135  sudo rm -f /etc/systemd/system/moonraker.service
+ 1136  sudo rm -f /etc/systemd/system/mainsail.service
+ 1137  sudo systemctl daemon-reload
+ 1138  home
+ 1139  ls
+ 1140  cd printer_data
+ 1141  ls
+ 1142  cd logs
+ 1143  ls
+ 1144  rm *.log
+ 1145  ls
+ 1146  sudo rm -rf /home/ajs/printer_data/systemd
+ 1147  sudo rm -f /home/ajs/moonraker.asvc
+ 1148  up
+ 1149  ls
+ 1150  sudo rm -rf ~/klipper_old
+ 1151  sudo rm -rf ~/klippy-env
+ 1152  sudo rm -rf ~/klipper-priority-fix*
+ 1153  sudo rm -rf ~/klipper-systemctl
+ 1154  sudo rm -rf ~/klipper-kconfigs
+ 1155  sudo rm -f  ~/klipper_auto_speed
+ 1156  sudo rm -f  ~/klipper_check_config.py
+ 1157  sudo rm -rf ~/klipper-led_effect
+ 1158  ls
+ 1159  rm -f ~/*.cfg
+ 1160  ls
+ 1161  rm -f ~/*.log
+ 1162  ls
+ 1163  kiauh
+ 1164  cd kiauh
+ 1165  ls
+ 1166  kiauh.sh
+ 1167  ./kiauh.sh
+ 1168  mv ~/kiauh ~/kiauh_backup
+ 1169  git clone https://github.com/th33xitus/kiauh.git ~/kiauh
+ 1170  chmod +x ~/kiauh/kiauh.sh
+ 1171  ./kiauh.sh
+ 1172  cd..
+ 1173  cd ..
+ 1174  ls
+ 1175  cd kiauh
+ 1176  ./kiauh.sh
+ 1177  ls ~/klipper/klippy/extras | grep shell
+ 1178  still no gcode_shell: [200~ajs@klipper:~/kiauh$ ls ~/klipper/klippy/extras | grep shell
+ 1179  ajs@klipper:~/kiauh$
+ 1180  ~systemctl cat klipper
+ 1181  systemctl cat klipper
+ 1182  sudo systemctl stop klipper
+ 1183  sudo rm -f /etc/systemd/system/klipper.service
+ 1184  sudo rm -rf /etc/systemd/system/klipper.service.d
+ 1185  sudo systemctl daemon-reload
+ 1186  sudo rm -rf /home/ajs/printer_data/systemd
+ 1187  kiauh
+ 1188  printerstatus
+ 1189  systemctl cat klipper
+ 1190  sudo systemctl stop klipper
+ 1191  sudo rm -f /etc/systemd/system/klipper.service
+ 1192  sudo rm -rf /etc/systemd/system/klipper.service.d
+ 1193  sudo rm -rf /home/ajs/printer_data/systemd
+ 1194  sudo systemctl daemon-reload
+ 1195  sf klipper
+ 1196  kiauh
+ 1197  systemctl cat klipper
+ 1198  sudo systemctl stop klipper
+ 1199  sudo rm -f /etc/systemd/system/klipper.service
+ 1200  ls -l /etc/systemd/system/klipper.service
+ 1201  sudo rm -rf /etc/systemd/system/klipper.service.d
+ 1202  ls -l /etc/systemd/system/ | grep klipper
+ 1203  sudo systemctl daemon-reload
+ 1204  kiauh
+ 1205  systemctl cat klipper
+ 1206  sudo find / -type f -name "klipper.service" 2>/dev/null
+ 1207  sudo rm -f /etc/systemd/system/klipper.service
+ 1208  ls -l /etc/systemd/system/klipper.service
+ 1209  sudo rm -rf /etc/systemd/system/klipper.service.d
+ 1210  ls -l /etc/systemd/system | grep klipper
+ 1211  sudo rm -rf /home/ajs/printer_data/systemd
+ 1212  sudo systemctl daemon-reload
+ 1213  systemctl cat klipper
+ 1214  kiauh
+ 1215  systemctl cat klipper
+ 1216  sudo find /etc/systemd /run/systemd /usr/lib/systemd /lib/systemd -type f -name "klipper.service" 2>/dev/null
+ 1217  ls -l /etc/systemd/system/klipper.service
+ 1218  lsattr /etc/systemd/system/klipper.service
+ 1219  sudo systemctl stop klipper
+ 1220  sudo systemctl disable klipper
+ 1221  sudo rm -v /etc/systemd/system/klipper.service
+ 1222  js@klipper:~/kiauh$ sudo rm -v /etc/systemd/system/klipper.service
+ 1223  removed '/etc/systemd/system/klipper.service'
+ 1224  ajs@klipper:~/kiauh$
+ 1225  sudo systemctl daemon-reload
+ 1226  systemctl cat klipper
+ 1227  kiauh
+ 1228  systemctl cat klipper
+ 1229  systemctl status klipper | grep Loaded
+ 1230  ls -l /etc/systemd/system/multi-user.target.wants/ | grep klipper
+ 1231  sudo rm -f /etc/systemd/system/multi-user.target.wants/klipper.service
+ 1232  sudo systemctl daemon-reload
+ 1233  systemctl cat klipper
+ 1234  sudo systemctl stop klipper
+ 1235  sudo systemctl disable klipper
+ 1236  sudo rm -f /etc/systemd/system/klipper.service
+ 1237  sudo rm -f /etc/systemd/system/multi-user.target.wants/klipper.service
+ 1238  sudo systemctl daemon-reload
+ 1239  systemctl cat klipper
+ 1240  kiauh
+ 1241  systemctl cat klipper
+ 1242  sudo systemctl disable klipper
+ 1243  sudo systemctl daemon-reload
+ 1244  systemctl cat klipper
+ 1245  home
+ 1246  systemctl cat klipper
+ 1247  /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1248  cat /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1249  sudo nano /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1250  sudo rm -f /etc/systemd/system/klipper.service
+ 1251  sudo systemctl daemon-reload
+ 1252  kiauh
+ 1253  systemctl cat klipper
+ 1254  ls ~/klipper/klippy/extras | grep shell
+ 1255  ls ~/klipper/klippy/extras | grep gcode
+ 1256  cd ~/klipper
+ 1257  git log -1
+ 1258  cp -r ~/printer_data/config ~/printer_data/config_backup
+ 1259  rm -rf ~/klipper
+ 1260  kiauh
+ 1261  home
+ 1262  kiauh
+ 1263  cd ~/klipper
+ 1264  git remote -v
+ 1265  ls ~/klipper/klippy/extras | grep shell
+ 1266  cd ~/klipper
+ 1267  git fetch
+ 1268  git checkout work-queue
+ 1269  nano ~/printer_data/config/moonraker.conf
+ 1270  cd ~/printer_data/
+ 1271  cd scripts
+ 1272  ls
+ 1273  nano ~/printer_data/config/moonraker.conf
+ 1274  sudo systemctl restart moonraker
+ 1275  systemctl status moonraker.service
+ 1276  journalctl -xeu moonraker.service --no-pager | tail -n 50
+ 1277  systemctl cat moonraker
+ 1278  ls -l /home/ajs/printer_data/systemd/
+ 1279  nano /home/ajs/printer_data/systemd/moonraker.env
+ 1280  chmod 644 /home/ajs/printer_data/systemd/moonraker.env
+ 1281  chown ajs:ajs /home/ajs/printer_data/systemd/moonraker.env
+ 1282  chmod 644 /home/ajs/printer_data/systemd/moonraker.env
+ 1283  chown ajs:ajs /home/ajs/printer_data/systemd/moonraker.env
+ 1284  sudo systemctl daemon-reload
+ 1285  sudo systemctl start moonraker
+ 1286  rebash
+ 1287  reboot
+ 1288  restart
+ 1289  home
+ 1290  restart
+ 1291  rebootnow
+ 1292  sudo apt update
+ 1293  sudo apt upgrade
+ 1294  printerstatus
+ 1295  tail -n 50 /home/ajs/printer_data/logs/klippy.log
+ 1296  cd printer_data
+ 1297  cd logs
+ 1298  ls
+ 1299  touch klippy.log
+ 1300  reboot now
+ 1301  rebootnow
+ 1302  rebash
+ 1303  printerstatus2
+ 1304  sudo systemctl stop klipper
+ 1305  sudo systemctl disable klipper
+ 1306  sudo rm /etc/systemd/system/klipper.service
+ 1307  sudo systemctl daemon-reload
+ 1308  kiauh
+ 1309  sudo systemctl status klipper
+ 1310  rebash
+ 1311  sudo systemctl status klipper
+ 1312  rebash
+ 1313  sudo systemctl status klipper
+ 1314  sudo visudo
+ 1315  sudo systemctl status klipper
+ 1316  printerstatus2
+ 1317  tail -n 50 /home/ajs/printer_data/logs/klippy.log
+ 1318  printerstatus2
+ 1319  sudo systemctl stop klipper
+ 1320  sudo systemctl disable klipper
+ 1321  sudo rm /etc/systemd/system/klipper.service
+ 1322  sudo systemctl daemon-reload
+ 1323  kiauh
+ 1324  printerstatus
+ 1325  printerstatus2
+ 1326  kiauh
+ 1327  printerstatus2
+ 1328  cat /etc/systemd/system/klipper.service
+ 1329  sudo systemctl stop klipper
+ 1330  sudo systemctl disable klipper
+ 1331  sudo rm /etc/systemd/system/klipper.service
+ 1332  sudo systemctl daemon-reload
+ 1333  kiauh
+ 1334  systemctl cat klipper
+ 1335  sudo systemctl stop klipper
+ 1336  sudo systemctl disable klipper
+ 1337  sudo rm /etc/systemd/system/klipper.service
+ 1338  sudo systemctl daemon-reload
+ 1339  kiauh
+ 1340  rebash
+ 1341  printerstatus3
+ 1342  ls
+ 1343  ./printerstatus3.sh
+ 1344  ls -l
+ 1345  ./printerstatus3.sh
+ 1346  kiauh
+ 1347  systemctl cat klipper
+ 1348  sudo rm /etc/systemd/system/klipper.service
+ 1349  sudo systemctl daemon-reload
+ 1350  ls -l /etc/systemd/system/klipper.service
+ 1351  ls -l /etc/systemd/system/multi-user.target.wants/ | grep klipper
+ 1352  sudo rm /etc/systemd/system/klipper.service
+ 1353  ls -l /etc/systemd/system/klipper.service
+ 1354  /etc/systemd/system/multi-user.target.wants/klipper.service
+ 1355  sudo rm /etc/systemd/system/multi-user.target.wants/klipper.service
+ 1356  ls -l /etc/systemd/system/multi-user.target.wants/ | grep klipper
+ 1357  kiauh
+ 1358  systemctl cat klipper
+ 1359  sudo rm /etc/systemd/system/klipper.service
+ 1360  sudo systemctl daemon-reload
+ 1361  sudo systemctl reset-failed
+ 1362  ls -l /etc/systemd/system/klipper.service
+ 1363  sudo rm /etc/systemd/system/multi-user.target.wants/klipper.service
+ 1364  ls -l /etc/systemd/system/multi-user.target.wants/ | grep klipper
+ 1365  kiauh
+ 1366  systemctl cat klipper
+ 1367  cat /etc/systemd/system/klipper-priority-fix.service
+ 1368  sudo find / -type f -name "klipper.service" 2>/dev/null
+ 1369  cat /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1370  sudo nano /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1371  cat /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1372  sudo rm /etc/systemd/system/klipper.service
+ 1373  sudo systemctl daemon-reload
+ 1374  sudo systemctl reset-failed
+ 1375  sudo rm /etc/systemd/system/klipper.service
+ 1376  sudo systemctl daemon-reload
+ 1377  sudo systemctl reset-failed
+ 1378  cat /home/ajs/kiauh/kiauh/components/klipper/assets/klipper.service
+ 1379  kiauh
+ 1380  systemctl cat klipper
+ 1381  sudo systemctl restart klipper
+ 1382  sudo systemctl status klipper
+ 1383  printerstatus3
+ 1384  grep -R "socket" /home/ajs/printer_data/config/moonraker.conf
+ 1385  cat /home/ajs/printer_data/config/moonraker.conf
+ 1386  nano /home/ajs/printer_data/config/moonraker.conf
+ 1387  sudo systemctl restart moonraker
+ 1388  ls -l /tmp/moonraker.sock
+ 1389  systemctl cat moonraker
+ 1390  cat /home/ajs/printer_data/systemd/moonraker.env
+ 1391  nano  /home/ajs/printer_data/systemd/moonraker.env
+ 1392  sudo systemctl daemon-reload
+ 1393  sudo systemctl restart moonraker
+ 1394  ls -l /tmp/moonraker.sock
+ 1395  ps -ef | grep moonraker | grep python
+ 1396  sudo nano /home/ajs/printer_data/config/moonraker.conf
+ 1397  sudo systemctl restart moonraker
+ 1398  sleep 2
+ 1399  ls -l /tmp/moonraker.sock
+ 1400  tail -n 50 /home/ajs/printer_data/logs/moonraker.log
+ 1401  sudo nano /home/ajs/printer_data/config/moonraker.conf
+ 1402  sudo systemctl restart moonraker
+ 1403  sleep 2
+ 1404  ls -l /tmp/moonraker.sock
+ 1405  grep -R "moonraker.conf" /home/ajs -n
+ 1406  restartnow
+ 1407  grep -R "moonraker.conf" /home/ajs -n
+ 1408  grep -R "moonraker.conf" /home/ajs -n | tee moonraker_conf_search.txt
+ 1409  grep -R "moonraker.conf" ~/printer_data -n > moonraker_conf_search.txt 2>&1
+ 1410  nano /home/ajs/printer_data/config/moonraker.conf
+ 1411  sudo systemctl restart moonraker
+ 1412  printerstatus3
+ 1413  nano /home/ajs/printer_data/config/moonraker.conf
+ 1414  sudo systemctl restart moonraker
+ 1415  printerstatus3
+ 1416  tail -n 50 /home/ajs/printer_data/logs/moonraker.log
+ 1417  ls -l /home/ajs/printer_data/comms/
+ 1418  printerstatus3
+ 1419  systemctl restart moonraker
+ 1420  rebash
+ 1421  printerstatus3
+ 1422  rebash
+ 1423  printerstatus3
+ 1424  rebash
+ 1425  printerstatus3
+ 1426  sudo journalctl -u moonraker -n 50 --no-pager
+ 1427  grep -n '}' /home/ajs/printer_data/config/moonraker.conf
+ 1428  cp /home/ajs/printer_data/config/.moonraker.conf.bkp    /home/ajs/printer_data/config/moonraker.conf
+ 1429  sudo systemctl restart moonraker
+ 1430  printerstatus3
+ 1431  grep -n "update_manager" /home/ajs/printer_data/config/moonraker.conf
+ 1432  printerstatus3
+ 1433  sudo journalctl -u moonraker -n 50 --no-pager
+ 1434  sudo systemctl stop moonraker
+ 1435  sudo rm -f /home/ajs/printer_data/comms/moonraker.sock
+ 1436  sudo systemctl start moonraker
+ 1437  sudo systemctl stop moonraker
+ 1438  sudo rm -f /home/ajs/printer_data/comms/moonraker.sock
+ 1439  sudo systemctl start moonraker
+ 1440  sudo systemctl status moonraker --no-pager
+ 1441  rebootnow
+ 1442  printerstatus3
+ 1443  cat /home/ajs/printer_data/config/moonraker.conf
+ 1444  printerstatus3
+ 1445  grep MOONRAKER_ARGS /etc/systemd/system/moonraker.service
+ 1446  cat /home/ajs/printer_data/systemd/moonraker.env
+ 1447  printerstatus3
+ 1448  sudo journalctl -u moonraker -n 80 --no-pager
+ 1449  cat /etc/systemd/system/moonraker.service
+ 1450  systemctl cat moonraker
+ 1451  sudo systemctl daemon-reload
+ 1452  sudo systemctl restart moonraker
+ 1453  systemctl status moonraker --no-pager
+ 1454  systemctl cat moonraker
+ 1455  lsattr /etc/systemd/system/moonraker.service
+ 1456  sudo nano /etc/systemd/system/moonraker.service
+ 1457  cat /etc/systemd/system/moonraker.service
+ 1458  sudo systemctl daemon-reload
+ 1459  sudo systemctl restart moonraker
+ 1460  systemctl cat moonraker
+ 1461  sudo systemctl daemon-reload
+ 1462  sudo systemctl restart moonraker
+ 1463  systemctl status moonraker --no-pager
+ 1464  sudo journalctl -u moonraker -n 40 --no-pager
+ 1465  systemctl status moonraker --no-pager
+ 1466  curl -s http://localhost:7125/server/info | jq
+ 1467  systemctl status klipper --no-pager
+ 1468  ls -l /home/ajs/printer_data/comms/klippy.sock
+ 1469  tail -n 80 /home/ajs/printer_data/logs/klippy.log
+ 1470  systemctl status klipper --no-pager
+ 1471  sudo systemctl restart klipper
+ 1472  ls -l /home/ajs/printer_data/comms/klippy.sock
+ 1473  sudo systemctl stop klipper
+ 1474  ps aux | grep klippy
+ 1475  tail -n 80 /home/ajs/printer_data/logs/klippy.log
+ 1476  sudo systemctl stop klipper
+ 1477  ps aux | grep klippy
+ 1478  tail -n 80 /home/ajs/printer_data/logs/klippy.log
+ 1479  sudo systemctl stop klipper
+ 1480  sudo systemctl start klipper
+ 1481  ls -l /home/ajs/printer_data/comms/klippy.sock
+ 1482  tail -n 40 /home/ajs/printer_data/logs/klippy.log
+ 1483  sudo systemctl stop klipper
+ 1484  sudo systemctl start klipper
+ 1485  ls -l /home/ajs/printer_data/comms/klippy.sock
+ 1486  tail -n 40 /home/ajs/printer_data/logs/klippy.log
+ 1487  ls -l /home/ajs/printer_data/logs/
+ 1488  sudo lsof -U | grep klippy
+ 1489  systemctl cat klipper
+ 1490  sudo nano /etc/systemd/system/klipper.service
+ 1491  sudo systemctl daemon-reload
+ 1492  sudo systemctl restart klipper
+ 1493  ls -l /home/ajs/printer_data/comms/klippy.sock
+ 1494  curl -s http://localhost:7125/server/info | jq
+ 1495  printerstatus3
+ 1496  cat /home/ajs/printerstatus3.log
+ 1497  printerstatus3
+ 1498  cat /home/ajs/printerstatus3.log
+ 1499  which printerstatus3
+ 1500  ls
+ 1501  which printerstatus3.sh
+ 1502  which printerstatus3
+ 1503  ls
+ 1504  printerstatus3
+ 1505  type printerstatus3
+ 1506  rebash
+ 1507  printerstatus3
+ 1508  type printerstatus3
+ 1509  ls -l /home/ajs/printerstatus3.sh
+ 1510  head -40 /home/ajs/printerstatus3.sh
+ 1511  sudo find / -type f -name "printerstatus3*" 2>/dev/null
+ 1512  type printerstatus3
+ 1513  ls -l /home/ajs/printerstatus3.sh
+ 1514  head -40 /home/ajs/printerstatus3.sh
+ 1515  sudo find / -type f -name "printerstatus3*" 2>/dev/null
+ 1516  printerstatus3
+ 1517  kiauh
+ 1518  systemctl status klipper
+ 1519  systemctl status klipper-2
+ 1520  systemctl status klipper
+ 1521  systemctl status klipper-2
+ 1522  sudo systemctl stop klipper-2
+ 1523  sudo systemctl disable klipper-2
+ 1524  sudo rm /etc/systemd/system/klipper-2.service
+ 1525  sudo systemctl daemon-reload
+ 1526  systemctl status klipper-2
+ 1527  kiauh
+ 1528  printerstatus3
+ 1529  sudo nano /etc/systemd/system/klipper.service
+ 1530  sudo systemctl daemon-reload
+ 1531  sudo systemctl restart klipper
+ 1532  sudo systemctl stop moonraker
+ 1533  sudo systemctl disable moonraker
+ 1534  sudo rm -rf /etc/systemd/system/moonraker.service
+ 1535  sudo rm -rf /root/moonraker
+ 1536  sudo rm -rf /root/printer_data
+ 1537  sudo systemctl daemon-reload
+ 1538  cd ~/kiauh
+ 1539  ./kiauh.sh
+ 1540  sudo systemctl stop nginx
+ 1541  sudo systemctl disable nginx
+ 1542  sudo apt purge nginx nginx-common nginx-full -y
+ 1543  sudo rm -rf /etc/nginx
+ 1544  cd \backups
+ 1545  cd \root\backups
+ 1546  fs backups
+ 1547  sf backups
+ 1548  cd /root/backups
+ 1549  sudo cd /root/backups
+ 1550  sudo -sh
+ 1551  sudo -s
+ 1552  up
+ 1553  printerstatus3
+ 1554  sudo systemctl start klipper
+ 1555  systemctl status klipper
+ 1556  journalctl -u klipper -n 50 --no-pager
+ 1557  systemctl cat klipper
+ 1558  ls -l /home/ajs/printer_data/config
+ 1559  [200~mv "/home/ajs/printer_data/config/ printer.cfg" "/home/ajs/printer_data/config/printer.cfg"
+ 1560  mv "/home/ajs/printer_data/config/ printer.cfg" "/home/ajs/printer_data/config/printer.cfg"
+ 1561  ls -lb /home/ajs/printer_data/config | grep cfg
+ 1562  systemctl cat klipper
+ 1563  sudo systemctl cat klipper
+ 1564  ls -l /etc/systemd/system | grep -i klipper
+ 1565  ls -l /etc/systemd/system/klipper.service.d
+ 1566  grep -R "ExecStart" -n /etc/systemd/system/klipper*
+ 1567  sudo nano /etc/systemd/system/klipper.service
+ 1568  sudo systemctl daemon-reload
+ 1569  sudo systemctl restart klipper
+ 1570  printerstatus3
+ 1571  sudo systemctl daemon-reload
+ 1572  sudo systemctl restart klipper
+ 1573  systemctl status klipper
+ 1574  head -n 5 /home/ajs/printer_data/config/printer.cfg | sed -n 'l'
+ 1575  head -n 15 /home/ajs/printer_data/config/printer.cfg | sed -n 'l'
+ 1576  head -n 50 /home/ajs/printer_data/config/printer.cfg | sed -n 'l'
+ 1577  sudo nano /etc/systemd/system/klipper.service
+ 1578  sudo systemctl daemon-reload
+ 1579  sudo systemctl restart klipper
+ 1580  systemctl status klipper
+ 1581  printerstatus3
+ 1582  systemctl status klipper
+ 1583  journalctl -u klipper -n 50 --no-pager
+ 1584  sudo nano /etc/systemd/system/klipper.service
+ 1585  sudo systemctl daemon-reload
+ 1586  sudo systemctl restart klipper
+ 1587  systemctl status klipper
+ 1588  systemctl show klipper -p ExecStart
+ 1589  grep -R "input" -n /home/ajs/printer_data/config
+ 1590  grep -R "tty" -n /home/ajs/printer_data/config
+ 1591  grep -R "
+ 1592  \[" -n /home/ajs/printer_data/config | grep " "
+ 1593  grep -R "
+ 1594  \[" -n /home/ajs/printer_data/config | grep " " > grep1.txt
+ 1595  ls
+ 1596  [200~/home/ajs/klippy-env/bin/python /home/ajs/klipper/klippy/klippy.py   -I /home/ajs/printer_data/config   /home/ajs/printer_data/config/printer.cfg   -c
+ 1597  ~
+ 1598  /home/ajs/klippy-env/bin/python /home/ajs/klipper/klippy/klippy.py   -I /home/ajs/printer_data/config   /home/ajs/printer_data/config/printer.cfg   -c
+ 1599  grep -R "neopixel" -n /home/ajs/printer_data/config
+ 1600  mv /home/ajs/printer_data/config/macro_neopixel    /home/ajs/printer_data/config/macro_neopixel.txt
+ 1601  sudo systemctl restart klipper
+ 1602  systemctl status klipper
+ 1603  journalctl -u klipper -n 50 --no-pager
+ 1604  ls -l /home/ajs/printer_data/config
+ 1605  mkdir -p /home/ajs/printer_data/config/noncfg
+ 1606  mv /home/ajs/printer_data/config/*.sh /home/ajs/printer_data/config/noncfg/
+ 1607  mv /home/ajs/printer_data/config/*.txt /home/ajs/printer_data/config/noncfg/
+ 1608  mv /home/ajs/printer_data/config/*.xml /home/ajs/printer_data/config/noncfg/
+ 1609  mv "/home/ajs/printer_data/config/Skew Info from Calitower" /home/ajs/printer_data/config/noncfg/
+ 1610  mv /home/ajs/printer_data/config/klipper_check_config.py /home/ajs/printer_data/config/noncfg/
+ 1611  mv /home/ajs/printer_data/config/macro_neopixel.txt /home/ajs/printer_data/config/noncfg/
+ 1612  sudo systemctl restart klipper
+ 1613  systemctl status klipper
+ 1614  mv /home/ajs/printer_data/config/moonraker.asvc /home/ajs/printer_data/config/noncfg/
+ 1615  mv /home/ajs/printer_data/config/moonraker.conf.bak_* /home/ajs/printer_data/config/noncfg/
+ 1616  mv /home/ajs/printer_data/config/moonraker.conf.preheal_* /home/ajs/printer_data/config/noncfg/
+ 1617  sudo systemctl restart klipper
+ 1618  systemctl status klipper
+ 1619  ls -l /home/ajs/printer_data/config
+ 1620  mv /home/ajs/printer_data/config/moonraker.asvc /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1621  mv /home/ajs/printer_data/config/moonraker.conf.bak_* /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1622  mv /home/ajs/printer_data/config/moonraker.conf.preheal_* /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1623  mv /home/ajs/printer_data/config/moonraker.asvc /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1624  mv /home/ajs/printer_data/config/moonraker.conf.bak_* /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1625  mv /home/ajs/printer_data/config/moonraker.conf.preheal_* /home/ajs/printer_data/config/noncfg/ 2>/dev/null
+ 1626  ls -l /home/ajs/printer_data/config
+ 1627  grep -R "
+ 1628  \[" -n /home/ajs/printer_data/config
+ 1629  grep -R "^
+ 1630  \[" -n /home/ajs/printer_data/config
+ 1631  grep -R "^
+ 1632  \[" -n /home/ajs/printer_data/config > newgrep.txt
+ 1633  ls
+ 1634  grep -R "^
+ 1635  \[" -n /home/ajs/printer_data/config | sed 's/^/>> /'
+ 1636  grep -R "^
+ 1637  \[" -n /home/ajs/printer_data/config | sed 's/^/>> /' > grep3.txt
+ 1638  grep -R "^
+ 1639  \[" -n /home/ajs/printer_data/config/*.cfg | sed 's/^/>> /'
+ 1640  grep -R "gcode_macro" -n /home/ajs/printer_data/config
+ 1641  grep -R "
+ 1642  \[" -n /home/ajs/printer_data/config | grep -v "^\s*
+ 1643  \["
+ 1644  grep -R "]" -n /home/ajs/printer_data/config | grep -v "
+ 1645  \["
+ 1646  mv /home/ajs/printer_data/config/macro_PauseResumeCancelM600.cfg.bak    /home/ajs/printer_data/config/noncfg/
+ 1647  ls -l
+ 1648  ls -l /home/ajs/printer_data/config
+ 1649  mv /home/ajs/printer_data/config/backup.sh.old    /home/ajs/printer_data/config/noncfg/
+ 1650  ls -l /home/ajs/printer_data/config
+ 1651  sudo systemctl restart klipper
+ 1652  systemctl status klipper
+ 1653  sed -n '1,120p' /home/ajs/printer_data/config/printer.cfg
+ 1654  grep -n "^
+ 1655  \[" /home/ajs/printer_data/config/macro_neopixel.cfg
+ 1656  mv /home/ajs/printer_data/config/moonraker.conf    /home/ajs/printer_data/config/noncfg/
+ 1657  sudo systemctl restart klipper
+ 1658  systemctl status klipper
+ 1659  grep -n "^
+ 1660  \[" /home/ajs/printer_data/config/macro_PauseResumeCancelM600.cfg
+ 1661  sed -n '1,200p' /home/ajs/printer_data/config/macro_PauseResumeCancelM600.cfg
+ 1662  grep -n "^
+ 1663  \[" /home/ajs/printer_data/config/start_print.cfg
+ 1664  sed -n '1,200p' /home/ajs/printer_data/config/start_print.cfg
+ 1665  tail -n 60 /tmp/klippy.log
+ 1666  systemctl cat klipper
+ 1667  sudo nano /etc/systemd/system/klipper.service
+ 1668  sudo systemctl daemon-reload
+ 1669  sudo systemctl restart klipper
+ 1670  systemctl status klipper
+ 1671  sudo systemctl restart klipper
+ 1672  systemctl status klipper
+ 1673  tail -n 60 /home/ajs/printer_data/logs/klippy.log
+ 1674  sudo lsof /dev/serial/by-id/*
+ 1675  ls -l /dev/serial/by-id/
+ 1676  cd ~/klipper
+ 1677  make menuconfig
+ 1678  make
+ 1679  sudo systemctl restart klipper
+ 1680  systemctl status klipper
+ 1681  exit
+ 1682  cp /out/klipper.bin firmware.bin
+ 1683  cp klipper/out/klipper.bin firmware.bin
+ 1684  rebootnow
+ 1685  printerstatus3
+ 1686  rebash
+ 1687  printerstatus3
+ 1688  ls
+ 1689  ./printerstatus3.sh
+ 1690  rebash
+ 1691  printerstatus3
+ 1692  kiauh
+ 1693  sudo apt-get update && sudo apt-get install git -y
+ 1694  rebash
+ 1695  ld
+ 1696  ls
+ 1697  nano backup.sh
+ 1698  nano cleandisk.sh
+ 1699  rebash
+ 1700  searchstr rename
+ 1701  rebash
+ 1702  searchstr "rename"
+ 1703  searchstr "rename" $home
+ 1704  searchstr "rename" /user/ajs
+ 1705  ls /root
+ 1706  sudo -sh
+ 1707  sudo -s
+ 1708  fs ajs
+ 1709  sf ajs
+ 1710  searchstr "rename" /home/ajs
+ 1711  rebash
+ 1712  searchstring "rename"
+ 1713  type grep
+ 1714  rebash
+ 1715  fsearch "rename"
+ 1716  fsearchrecursive "rename"
+ 1717  logrotate --version
+ 1718  cd /etc
+ 1719  ls
+ 1720  nano logrotate.conf
+ 1721  sudo nano logrotate.conf
+ 1722  rebash
+ 1723  home
+ 1724  fsearch rename
+ 1725  fsearch "rename"
+ 1726  rebash
+ 1727  fsearch "rename"
+ 1728  rebash
+ 1729  fsearch "rename"
+ 1730  ipconfig
+ 1731  rebootnow
+ 1732  printerstatus3
+ 1733  fs moonraker.conf
+ 1734  sf moonraker.conf
+ 1735  sudo nano /home/ajs/printer_data/config/noncfg/moonraker.conf
+ 1736  sudo nano /etc/systemd/system/moonraker.service
+ 1737  sudo systemctl daemon-reload
+ 1738  sudo systemctl restart moonraker
+ 1739  systemctl status moonraker --no-pager
+ 1740  sudo systemctl start klipper
+ 1741  systemctl status klipper --no-pager
+ 1742  journalctl -u klipper -n 50 --no-pager
+ 1743  ls -l /home/ajs/printer_data/config
+ 1744  cat /etc/systemd/system/klipper.service
+ 1745  sudo nano /etc/systemd/system/moonraker.service
+ 1746  sudo nano /etc/systemd/system/klipper.service
+ 1747  sudo systemctl daemon-reload
+ 1748  sudo systemctl restart klipper
+ 1749  systemctl status klipper --no-pager
+ 1750  journalctl -u klipper -n 50 --no-pager
+ 1751  ls -l /home/ajs/printer_data
+ 1752  ls -l /home/ajs/printer_data/printer_data
+ 1753  ls -l /home/ajs/printer_data/printer_data/config
+ 1754  ls -l /home/ajs/printer_data/config
+ 1755  rm -rf /home/ajs/printer_data/printer_data
+ 1756  sudo systemctl restart klipper
+ 1757  systemctl status klipper --no-pager
+ 1758  journalctl -u klipper -n 50 --no-pager
+ 1759  ls -ld /home/ajs/printer_data/config
+ 1760  systemctl cat klipper
+ 1761  sudo systemctl stop klipper
+ 1762  sudo systemctl disable klipper
+ 1763  sudo systemctl daemon-reload
+ 1764  sudo systemctl enable klipper
+ 1765  sudo systemctl start klipper
+ 1766  systemctl cat klipper
+ 1767  systemctl status klipper --no-pager
+ 1768  journalctl -u klipper -n 50 --no-pager
+ 1769  find /home/ajs/printer_data -maxdepth 1 -type f -name config
+ 1770  sudo nano /etc/systemd/system/klipper.service
+ 1771  sudo systemctl daemon-reload
+ 1772  sudo systemctl restart klipper
+ 1773  systemctl status klipper --no-pager
+ 1774  systemctl show klipper -p ExecStart
+ 1775  ls -l /home/ajs/printer_data/systemd
+ 1776  cat /home/ajs/printer_data/systemd/klipper.env
+ 1777  sudo rm /home/ajs/printer_data/systemd/klipper.env
+ 1778  sudo systemctl daemon-reload
+ 1779  sudo systemctl restart klipper
+ 1780  systemctl status klipper --no-pager
+ 1781  cat /home/ajs/printer_data/logs/klippy.log
+ 1782  tail -n 100 /home/ajs/printer_data/logs/klippy.log
+ 1783  ls -l /dev/serial/by-id
+ 1784  fuser -v /dev/serial/by-id/usb-Klipper_stm32g0b1xx_1D000D0010504B5735313920-if00
+ 1785  lsusb
+ 1786  dmesg | tail -n 50
+ 1787  ls -l /var/lock | grep ttyACM
+ 1788  cd ~/klipper
+ 1789  make menuconfig
+ 1790  cd ~/klipper
+ 1791  make
+ 1792  1d50:614e OpenMoko stm32g0b1xx
+ 1793  ls -l ~/klipper/out/klipper.bin
+ 1794  aliases
+ 1795  klipperports
+ 1796  rebash
+ 1797  aliases
+ 1798  klipperports
+ 1799  rebootnow
+ 1800  sudo systemctl restart klipper
+ 1801  systemctl status klipper --no-pager
+ 1802  tail -n 100 /home/ajs/printer_data/logs/klippy.log
+ 1803  ls -l /dev/serial/by-id
+ 1804  sudo fuser -v /dev/ttyACM0
+ 1805  sudo dmesg | tail -n 50
+ 1806  ls /dev/serial/by-id
+ 1807  rebash
+ 1808  sf "2026-04-0"
+ 1809  rebash
+ 1810  aliases
+ 1811  sudof "2026-04-" /root
+ 1812  sudof "2026-04-"
+ 1813  cd printer_data
+ 1814  cd logs
+ 1815  ls
+ 1816  klipperports
+ 1817  home
+ 1818  klipperports
+ 1819  ls /dev/serial/by-id
+ 1820  rebash
+ 1821  klipperports
+ 1822  aliases
+ 1823  rebash
+ 1824  klipperports
+ 1825  klipperrestartall
+ 1826  klipperstatus3
+ 1827  [200~/home/ajs/printer_data/config/noncfg~
+ 1828  cd printer_data
+ 1829  cd config
+ 1830  cd noncfg
+ 1831  ls
+ 1832  home
+ 1833  klipperrestartall
+ 1834  ls -l /etc/cron.daily
+ 1835  ls -l /etc/cron.d
+ 1836  crontab -l
+ 1837  sudo crontab -l
+ 1838  grep -R "/root/backups" -n /etc /root /usr/local/bin /opt
+ 1839  sudo grep -R "/root/backups" -n /etc /root /usr/local/bin /opt
+ 1840  sudo ls -l /root
+ 1841  cat /etc/logrotate.d/custom-cleanup
+ 1842  sudo -s
+ 1843  sudo systemctl stop klipper
+ 1844  Start Klipper first:
+ 1845  sudo systemctl stop moonraker
+ 1846  sudo systemctl stop mainsail
+ 1847  sudo pkill -f klippy
+ 1848  sudo pkill -f moonraker
+ 1849  systemctl status klipper --no-pager
+ 1850  systemctl status moonraker --no-pager
+ 1851  sudo systemctl start klipper
+ 1852  systemctl status klipper --no-pager
+ 1853  tail -n 100 /home/ajs/printer_data/logs/klippy.log
+ 1854  klipperports
+ 1855  ls -l /dev/serial/by-id
+ 1856  sudo dmesg | tail -n 50
+ 1857  lsusb
+ 1858  cd kiauh
+ 1859  menuconfig
+ 1860  ls
+ 1861  up
+ 1862  cd ~/klipper
+ 1863  make clean
+ 1864  make menuconfig
+ 1865  make
+ 1866  cp out/klipper.bin ~/firmware.bin
+ 1867  home
+ 1868  ls
+ 1869  ls -l /dev/serial/by-id
+ 1870  lsusb
+ 1871  ls -l /dev/serial/by-id
+ 1872  sudo systemctl restart klipper
+ 1873  systemctl status klipper --no-pager
+ 1874  tail -n 50 ~/printer_data/logs/klippy.log
+ 1875  systemctl status klipper --no-pager
+ 1876  sudo systemctl restart klipper
+ 1877  systemctl status klipper --no-pager
+ 1878  tail -n 50 ~/printer_data/logs/klippy.log
+ 1879  grep -R "g0b1" -n ~/printer_data/config
+ 1880  rm ~/printer_data/config/noncfg/serialports.txt
+ 1881  sudo systemctl restart moonraker
+ 1882  sudo systemctl restart klipper
+ 1883  tail -n 30 ~/printer_data/logs/klippy.log
+ 1884  grep -R "serial:" -n ~/printer_data/config
+ 1885  systemctl cat klipper
+ 1886  sudo systemctl stop moonraker
+ 1887  sudo systemctl stop klipper
+ 1888  rm -f ~/printer_data/config/noncfg/serialports.txt
+ 1889  rm -f ~/printer_data/config/noncfg/moonraker.asvc
+ 1890  rm -f ~/printer_data/config/noncfg/moonraker.db
+ 1891  sudo systemctl start klipper
+ 1892  sudo systemctl start moonraker
+ 1893  tail -n 50 ~/printer_data/logs/klippy.log
+ 1894  sudo fuser -v /dev/ttyACM0
+ 1895  cd ~/klipper
+ 1896  make clean
+ 1897  make menuconfig
+ 1898  make
+ 1899  sudo systemctl restart klipper
+ 1900  cd ~/klipper
+ 1901  make clean
+ 1902  make menuconfig
+ 1903  make
+ 1904  sudo systemctl restart klipper
+ 1905  tail -n 50 ~/printer_data/logs/klippy.log
+ 1906  ls -l ~/klipper
+ 1907  ls -l ~/klipper/.config
+ 1908  ls -l ~/klipper/out
+ 1909  sudo systemctl stop klipper
+ 1910  sudo systemctl stop moonraker
+ 1911  sudo systemctl start moonraker
+ 1912  sudo systemctl start klipper
+ 1913  tail -n 50 ~/printer_data/logs/klippy.log
+ 1914  source ~/klippy-env/bin/activate
+ 1915  cd ~/klipper
+ 1916  make clean
+ 1917  make menuconfig
+ 1918  make -j4
+ 1919  sudo systemctl restart klipper
+ 1920  tail -n 50 ~/printer_data/logs/klippy.log
+ 1921  ps -ef | grep klippy
+ 1922  sudo systemctl status klipper --no-pager
+ 1923  journalctl -u klipper -n 50 --no-pager
+ 1924  sudo systemctl stop klipper
+ 1925  sudo systemctl stop moonraker
+ 1926  rm -f /home/ajs/printer_data/config
+ 1927  sudo systemctl stop klipper
+ 1928  sudo systemctl stop moonraker
+ 1929  rm -rf /home/ajs/printer_data/config
+ 1930  mkdir -p /home/ajs/printer_data/config
+ 1931  sudo chown -R ajs:ajs /home/ajs/printer_data/config
+ 1932  sudo systemctl start klipper
+ 1933  sudo systemctl start moonraker
+ 1934  sudo systemctl start klipper
+ 1935  sudo systemctl start moonraker
+ 1936  tail -n 50 ~/printer_data/logs/klippy.log
+ 1937  journalctl -u klipper -n 30 --no-pager
+ 1938  sudo systemctl stop klipper
+ 1939  sudo systemctl stop moonraker
+ 1940  sudo systemctl disable klipper
+ 1941  sudo systemctl disable moonraker
+ 1942  sudo systemctl mask klipper
+ 1943  sudo ln -sf /dev/null /etc/systemd/system/klipper.service
+ 1944  sudo systemctl daemon-reload
+ 1945  systemctl status klipper --no-pager
+ 1946  ls -ld /home/ajs/printer_data/config
+ 1947  sudo rm /etc/systemd/system/klipper.service
+ 1948  sudo cp ~/klipper/scripts/klipper.service /etc/systemd/system/klipper.service
+ 1949  sudo rm /etc/systemd/system/klipper.service
+ 1950  ls -l /etc/systemd/system | grep -i klipper
+ 1951  sudo nano /etc/systemd/system/klipper.service
+ 1952  sudo systemctl daemon-reload
+ 1953  sudo systemctl enable klipper
+ 1954  sudo systemctl start klipper
+ 1955  journalctl -u klipper -n 30 --no-pager
+ 1956  systemctl cat klipper
+ 1957  sudo systemd-run --property=WorkingDirectory=/home/ajs/printer_data --pty ls -l
+ 1958  sudo systemd-run --property=WorkingDirectory=/home/ajs/printer_data --pty ls -ld config
+ 1959  mv ~/klipper ~/klipper_corrupted
+ 1960  git clone https://github.com/Klipper3d/klipper.git ~/klipper
+ 1961  cd ~
+ 1962  mv ~/klipper ~/klipper_corrupted
+ 1963  git clone https://github.com/Klipper3d/klipper.git ~/klipper
+ 1964  ~/klippy-env/bin/pip install -r ~/klipper/scripts/klippy-requirements.txt
+ 1965  sudo systemctl restart klipper
+ 1966  journalctl -u klipper -n 30 --no-pager
+ 1967  pwd
+ 1968  ls -ld ~/klipper ~/klipper_corrupted
+ 1969  ~/klippy-env/bin/pip install -r ~/klipper/scripts/klippy-requirements.txt
+ 1970  ~/klippy-env/bin/pip uninstall -y klippy
+ 1971  ls -l /home/ajs/klipper/klippy/util.py
+ 1972  head -n 40 /home/ajs/klipper/klippy/util.py
+ 1973  sudo nano /etc/systemd/system/klipper.service
+ 1974  sudo systemctl daemon-reload
+ 1975  sudo systemctl restart klipper
+ 1976  journalctl -u klipper -n 30 --no-pager
+ 1977  systemctl cat klipper
+ 1978  ls -l /etc/systemd/system/klipper.service.d
+ 1979  ls -l /usr/lib/systemd/system | grep -i klipper
+ 1980  ls -l /lib/systemd/system | grep -i klipper
+ 1981  ps -ef | grep klippy
+ 1982  sudo systemctl stop klipper
+ 1983  sudo pkill -f klippy
+ 1984  ps -ef | grep klippy
+ 1985  sudo systemctl start klipper
+ 1986  history
+ 1987  history > history.txt

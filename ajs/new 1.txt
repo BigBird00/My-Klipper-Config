@@ -1,0 +1,722 @@
+STOP ALL KLIPPER‑RELATED SERVICES
+
+Run these one by one:
+
+sudo systemctl stop klipper
+sudo systemctl stop moonraker
+#sudo systemctl stop crowsnest  # only if you use it
+sudo systemctl stop mainsail   # only if you installed it as a service
+
+If you want to be absolutely sure nothing is still hanging around:
+sudo pkill -f klippy
+sudo pkill -f moonraker
+
+VERIFY EVERYTHING IS STOPPED
+systemctl status klipper --no-pager
+systemctl status moonraker --no-pager
+
+Both should show:
+inactive (dead)
+
+If anything still shows “running,” stop it again.
+
+
+Start Klipper first:
+sudo systemctl start klipper
+
+Check it:
+systemctl status klipper --no-pager
+
+Then start Moonraker:
+sudo systemctl start moonraker
+
+Check it:
+systemctl status moonraker --no-pager
+
+Optional services:
+#sudo systemctl start crowsnest
+sudo systemctl start mainsail
+
+
+1. Core File & Directory Healing
+
+These are the foundational checks that ensure your Klipper/Moonraker/Mainsail environment has the correct filesystem structure.
+✔ Directory Enforcement
+
+Automatically ensures required directories exist:
+
+    printer_data/config
+
+    printer_data/config/noncfg
+
+    printer_data/logs
+
+    /var/log/nginx
+
+If missing → created (logged + counted as a change).
+✔ File Enforcement
+
+Ensures:
+
+    noncfg/moonraker.conf exists
+    If missing → created.
+
+✔ Symlink Enforcement
+
+Ensures correct symlinks for:
+
+    config/moonraker.conf → config/noncfg/moonraker.conf
+
+    /etc/nginx/sites-enabled/mainsail → /etc/nginx/sites-available/mainsail
+
+    Nginx access/error logs → printer_data/logs
+
+Repairs:
+
+    broken symlinks
+
+    incorrect symlinks
+
+    files that should be symlinks
+
+Each repair is logged and counted.
+⚙️ 2. Moonraker Configuration Healing
+
+This is one of the most powerful parts of v1.31.
+✔ Removes invalid keys
+
+    klippy_uds_path:
+
+    any deprecated or incorrect socket keys
+
+✔ Ensures correct [server] block
+
+Adds if missing:
+Code
+
+[server]
+host: 0.0.0.0
+port: 7125
+socket_path: /home/ajs/printer_data/comms/moonraker.sock
+
+✔ Ensures correct [klippy_uds] block
+
+Adds if missing:
+Code
+
+[klippy_uds]
+path: /home/ajs/printer_data/comms/klippy.sock
+
+✔ Ensures missing keys inside blocks
+
+If [server] exists but socket_path: is missing → added
+If [klippy_uds] exists but path: missing → added
+✔ Flags Moonraker for restart if config changed
+🔧 3. Klipper Service Healing
+
+Ensures your Klipper systemd service is correct.
+✔ Validates ExecStart=
+
+If missing the socket argument:
+Code
+
+-a /home/ajs/printer_data/comms/klippy.sock
+
+→ The entire ExecStart is rewritten to a known‑good template.
+✔ Ensures correct:
+
+    log path
+
+    config path
+
+    include path
+
+    socket path
+
+✔ Flags Klipper for restart if changed
+✔ Reloads systemd daemon when needed
+🌐 4. Service Health Monitoring
+
+Checks the live state of:
+
+    Klipper
+
+    Moonraker
+
+    Nginx (Mainsail)
+
+Using:
+Code
+
+systemctl is-active
+
+✔ Color-coded in summary
+
+    active → green
+
+    inactive/failed → red
+
+🧩 5. Printer Offline Reason Detector
+
+If printer is offline, v1.31 identifies the cause:
+
+    Moonraker inactive
+
+    Klipper inactive
+
+    Klipper socket missing
+
+    Moonraker socket missing
+
+    Config mismatch
+
+    Wrong klippy_uds path
+
+    Permission issues
+
+Displayed in summary in red.
+🧪 6. Klipper Config Syntax Check
+
+Runs a real syntax check against:
+Code
+
+printer.cfg
+
+If valid:
+Code
+
+OK
+
+If invalid:
+Code
+
+ERROR (line X: <reason>)
+
+Also:
+
+    logged
+
+    counted
+
+    penalized in health score
+
+📊 7. Weighted Health Score (0–100)
+
+Based on your chosen Option B:
+High-impact penalties
+
+    Klipper inactive → –40
+
+    Moonraker inactive → –30
+
+    Nginx inactive → –20
+
+Medium-impact
+
+    Moonraker config changed → –20
+
+    Klipper service changed → –20
+
+    Klipper config syntax error → –20
+
+Low-impact
+
+    Symlink repairs → –10 each
+
+    Directory/file creation → –2 each
+
+Score is:
+
+    clamped 0–100
+
+    color-coded
+
+    shown only in summary (your choice)
+
+🕒 8. Service Uptime Reporting
+
+Shows when each service became active:
+
+    Klipper active since
+
+    Moonraker active since
+
+    Nginx active since
+
+Pulled from systemd timestamps.
+🕓 9. Execution Timing
+
+Shows how long the entire self-heal run took:
+Code
+
+Execution time: 0.42s
+
+🕘 10. Last-Healed Timestamp
+
+Stored in:
+Code
+
+printer_data/logs/last_heal.txt
+
+Displayed in summary.
+📜 11. Healing Log
+
+Every repair action is recorded:
+Code
+
+Healing actions:
+  - Corrected symlink: mainsail-access.log
+  - Added [klippy_uds] block to moonraker.conf
+  - Rewrote ExecStart in klipper.service
+
+If nothing changed:
+Code
+
+Healing actions: none (everything already correct)
+
+🔁 12. Restart-Required Flags
+
+For each service:
+
+    yes → red
+
+    no → green
+
+Flags set when:
+
+    configs changed
+
+    service files changed
+
+    symlinks changed
+
+🔄 13. Optional Interactive Restart
+
+If any service needs restart:
+Code
+
+Restart now? (y/n):
+
+If yes → only restarts the services that require it.
+🧾 14. JSON Outputs
+
+Two JSON files:
+selfheal.json
+
+    raw JSON from directory/file/symlink checks
+
+    used for debugging
+
+printerstatus3.json
+
+Clean, structured JSON for your printerstatus3 script:
+
+    service states
+
+    restart flags
+
+    changes
+
+    healing log
+
+    execution time
+
+No health score (your choice).
+🎨 15. Full Color Everywhere
+
+    Summary
+
+    Status words
+
+    Change counter
+
+    Restart flags
+
+    Health score
+
+    Offline reason
+
+All color-coded for instant readability.
+🧱 16. Everything from v1.29 and v1.30 is preserved
+
+Nothing lost — only expanded.
+⭐ If you want, I can generate a visual architecture diagram next.
+
+Or we can move on to v1.32 if you want new features like:
+
+    Klipper MCU reconnect automation
+
+    USB device health checks
+
+    Temperature sanity checks
+
+    Auto-backup of configs
+
+    Auto-restore of corrupted configs
+
+Just tell me what direction you want to go.
+
+It prints:
+
+    Klipper status
+
+    Moonraker status
+
+    Mainsail status
+
+    JSON summary
+
+    Health score (if you added it)
+
+    Colors
+
+    etc.
+
+2. printer_selfheal_symlinks.sh
+
+This is the big self‑healing engine (v1.29 → v1.32) that:
+
+    repairs configs
+
+    repairs symlinks
+
+    repairs services
+
+    checks USB
+
+    backs up configs
+
+    restores corrupted configs
+
+    computes health score
+
+    writes JSON
+
+    prints summary
+
+    etc.
+	
+	
+	1. Moonraker Version Detection
+
+The script will classify:
+v0.10.x
+
+    No Machine API
+
+    Old config syntax
+
+    Uses klippy_uds_address:
+
+    No [klippy_uds] block
+
+v0.11.x
+
+    Machine API introduced
+
+    New config syntax
+
+    Uses [klippy_uds] block
+
+v1.x
+
+    Full Machine API
+
+    Strict config validation
+
+    New update manager
+
+The script will extract:
+
+    moonraker_version
+
+    api_version
+
+    major/minor numbers
+
+And set:
+Code
+
+MR_MAJOR=0
+MR_MINOR=10
+
+etc.
+⭐ 2. Config Validation (Version‑Aware)
+For v0.10.x
+
+Expect:
+Code
+
+[server]
+socket_path:
+klippy_uds_address:
+
+Reject:
+Code
+
+[klippy_uds]
+path:
+
+For v0.11+
+
+Expect:
+Code
+
+[klippy_uds]
+path:
+
+Reject:
+Code
+
+klippy_uds_address:
+
+For v1.x
+
+Expect:
+
+    No deprecated fields
+
+    No unparsed warnings
+
+    Machine API enabled
+
+The script will:
+
+    Parse the config
+
+    Detect mismatches
+
+    Offer fixes
+
+    Apply only with confirmation
+
+⭐ 3. Socket Validation
+
+The script will check:
+Code
+
+/home/ajs/printer_data/comms/moonraker.sock
+/home/ajs/printer_data/comms/klippy.sock
+
+It will detect:
+
+    Missing sockets
+
+    Wrong permissions
+
+    Wrong ownership
+
+    Wrong paths in config
+
+And offer to fix them.
+⭐ 4. API Endpoint Validation
+v0.10.x
+
+    /server/info
+
+    /printer/info
+
+    /printer/objects/list
+
+v0.11+
+
+    /machine/info
+
+    /machine/system_info
+
+v1.x
+
+    Full Machine API
+
+The script will:
+
+    Probe endpoints
+
+    Detect availability
+
+    Report version‑appropriate health
+
+⭐ 5. Systemd Service Validation
+
+The script will check:
+
+    Correct ExecStart
+
+    Correct wrapper script
+
+    Correct WorkingDirectory
+
+    Correct Python path
+
+    Correct restart policy
+
+    Correct EnvironmentFile
+
+    Correct user/group
+
+If something is wrong, it will:
+
+    Explain the issue
+
+    Show the expected value
+
+    Offer to fix it
+
+    Apply only if you confirm
+
+⭐ 6. Wrapper Script Validation
+
+The script will ensure:
+Code
+
+exec /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/moonraker/moonraker.py $MOONRAKER_ARGS
+
+It will detect:
+
+    Missing exec
+
+    Wrong Python path
+
+    Wrong Moonraker path
+
+    Missing args
+
+And offer to repair.
+⭐ 7. Health Summary Output
+
+At the end, the script will print a structured summary:
+
+    Moonraker version
+
+    Klipper state
+
+    Socket health
+
+    Config syntax health
+
+    API endpoint health
+
+    Service health
+
+    Wrapper script health
+
+    Warnings
+
+    Errors
+
+    Suggested fixes
+
+⭐ 8. Interactive Fix Mode (Option 2)
+
+For each detected issue:
+
+    Show the problem
+
+    Show the proposed fix
+
+    Ask:
+
+Code
+
+Apply this fix? [y/N]:
+
+    Only apply if you say yes
+
+    Otherwise skip
+
+This gives you full control.
+
+
+
+⭐ You want printerstatus3.sh v1.34 to:
+✔ Install at:
+Code
+
+/home/ajs/printerstatus3.sh
+
+✔ Support Moonraker:
+
+    v0.10.x (your current version)
+
+    v0.11.x
+
+    v1.x
+
+✔ Detect version at runtime
+
+And adjust validation rules accordingly.
+✔ Validate the ExecStart wrapper script:
+
+    Ensure it exists
+
+    Ensure it contains the correct exec line
+
+    Ensure it points to the correct Python
+
+    Ensure it points to the correct Moonraker entrypoint
+
+    Ensure $MOONRAKER_ARGS is included
+
+✔ Validate wrapper script permissions:
+
+    Must be executable
+
+    Must be owned by ajs
+
+    Must not be world-writable
+
+    Must have correct shebang
+
+✔ Validate service file ExecStart:
+
+    Must call the wrapper script
+
+    Must not contain bash -c
+
+    Must not contain unescaped quotes
+
+    Must not contain multiple ExecStart lines
+
+✔ Validate EnvironmentFile:
+
+    Must exist
+
+    Must be readable by systemd
+
+    Must contain MOONRAKER_ARGS=
+
+✔ Validate config syntax based on version:
+
+    v0.10.x → klippy_uds_address:
+
+    v0.11+ → [klippy_uds] block
+
+    v1.x → strict schema
+
+✔ Validate sockets:
+
+    Moonraker socket exists
+
+    Klippy socket exists
+
+    Permissions correct
+
+✔ Validate API endpoints based on version:
+
+    v0.10.x → no Machine API
+
+    v0.11+ → Machine API available
+
+    v1.x → full Machine API
+
+✔ Interactive fix mode (Option 2):
+
+For each detected issue:
+
+    Show the problem
+
+    Show the expected value
+
+    Offer a fix
+
+    Apply only if you confirm

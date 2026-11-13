@@ -1,0 +1,38 @@
+/var/log/mail.log
+/var/log/auth.log
+/var/log/user.log
+/var/log/cron.log
+{
+	rotate 4
+	weekly
+	missingok
+	notifempty
+	compress
+	delaycompress
+	sharedscripts
+	postrotate
+	/usr/lib/rsyslog/rsyslog-rotate
+	endscript
+}
+
+/var/log/syslog
+/var/log/kern.log
+{
+    daily
+    size 100M
+    maxage 2
+    rotate 2
+    compress
+    delaycompress
+    missingok
+    notifempty
+}
+
+# Exclude alternatives.log (handled by /etc/logrotate.d/alternatives)
+/var/log/alternatives.log {
+    missingok
+    notifempty
+    nocompress
+    nomail
+    rotate 0
+}

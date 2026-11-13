@@ -1,0 +1,69 @@
+Check AC 2017 Jeep Renegade
+
+
+
+To check the A/C (air conditioning) pressure sensor on a 2017 Jeep Renegade using a Vgate iCar Pro Bluetooth adapter with the JScan app, you can follow these steps:
+1. Hardware Setup
+
+    Locate the OBD-II port under the driver’s side dashboard of your Jeep Renegade.
+    Plug in the Vgate iCar Pro Bluetooth OBD-II adapter into the port.
+    Ensure your phone’s Bluetooth is enabled and set to discoverable.
+
+2. Connect JScan to the Vehicle
+
+    Install and launch the JScan app from Google Play or Apple Store.
+    Select your vehicle make and model (Jeep Renegade 2017).
+    Choose your adapter: "iCar Vgate 4.0 BLE" (or your appropriate Vgate version).
+    Turn the ignition to the RUN / ON position (engine off is acceptable for reading live data, but for certain live readings, engine running may be required).
+    Wait for the app to detect the VIN to ensure proper communication.
+
+3. Access Live Data for A/C Sensor
+
+    Within JScan, navigate to Modules and select the HVAC (A/C) module if available.
+    Open Live Data (sometimes labeled as PIDs / sensor data).
+    Locate the parameter for A/C pressure sensor (high or low side, depending on system). The sensor may be listed as:
+        “A/C Refrigerant Pressure”
+        “High Pressure Sensor”
+        “Low Pressure Sensor”
+
+4. Monitor and Interpret Sensor Readings
+
+    With the engine running and A/C system turned ON at max, observe the live pressure readings.
+    Compare the values to expected operation ranges for the 2017 Jeep Renegade A/C system:
+        Low-side pressure: ~25–45 psi (depending on ambient temperature)
+        High-side pressure: ~150–250 psi (depending on ambient temperature)
+    If the sensor shows erratic readings, very low or very high values, it may indicate a faulty sensor or refrigerant insufficiency.
+
+5. Verify Sensor Function and Troubleshoot
+
+    Use JScan’s DTC reading feature to check for any
+	Diagnostic Trouble Codes related to the A/C system;
+	for example, P0522, P0523 type codes if the sensor or
+	pressure circuit is failing. If codes are present,
+	you can clear the codes and test again using
+	live data to confirm proper sensor operation.
+
+Notes & Tips
+
+    Ensure the iCar Pro adapter maintains a stable Bluetooth
+	connection; loose connection can give inaccurate live data.
+    For 2017 Renegade models, no Security Gateway Bypass should
+	be required to read live data for the A/C sensor
+    (it is needed mainly for coding or adaptations).
+    Always handle the A/C system carefully; do not directly
+	open the service ports unless certified to avoid injury
+	and refrigerant loss.
+
+Optional JScan Features
+
+    Trace / Logging: JScan allows logging of the A/C pressure
+		readings over time to observe system performance during
+		different operating conditions.
+    Module Tests / Actuators: While the A/C pressure sensor itself
+		cannot be activated, you can run tests on
+		compressor clutch operation to correlate
+		sensor readings with system pressure response.
+
+Following these steps using iCar Pro + JScan allows
+reliable monitoring of the A/C pressure sensor without
+disassembling the system.

@@ -1,0 +1,404 @@
+# Extended Minimal Power Loss Recovery for Klipper
+# Immediate layer-change save + resume + bed mesh save/load
+# Restores temps, fan speed, pressure advance, and slicer-accurate retract
+
+import logging
+import json
+
+def load_config(config):
+    return PowerLossRecovery(config)
+
+
+class PowerLossRecovery:
+    # Help text (class attributes)
+    cmd_PLR_DISABLE_help = "Disable Power Loss Recovery."
+    cmd_PLR_ENABLE_help = "Enable Power Loss Recovery."
+    cmd_PLR_QUERY_SAVED_STATE_help = "Query the saved PLR print state."
+    cmd_PLR_RESET_PRINT_DATA_help = "Reset all saved PLR print data."
+    cmd_PLR_RESUME_PRINT_help = "Resume a print using saved PLR state."
+    cmd_PLR_SAVE_PRINT_STATE_help = "Save the current PLR print state to variables."
+
+    def __init__(self, config):
+        logging.info("Extended Minimal PowerLossRecovery loaded")
+
+        self.printer = config.get_printer()
+        self.reactor = self.printer.get_reactor()
+        self.gcode = self.printer.lookup_object('gcode')
+
+        self.debug_mode = config.getboolean('debug_mode', False)
+        self.save_on_layer = config.getboolean('save_on_layer', True)
+        self.variables_file = config.get(
+            'variables_file',
+            '~/printer_data/config/variables.cfg'
+        )
+
+        # Resume behavior
+        self.resume_restore_temps = config.getboolean('resume_restore_temps', True)
+        self.resume_restore_fans = config.getboolean('resume_restore_fans', True)
+        self.resume_restore_pa = config.getboolean('resume_restore_pa', True)
+        self.part_cooling_fan_name = config.get('part_cooling_fan', None)
+
+        # Core objects loaded later
+        self.toolhead = None
+        self.extruder = None
+        self.heater_bed = None
+        self.bed_mesh = None
+        self.save_variables = None
+        self.part_cooling_fan = None
+
+        self.last_layer = 0
+        self.current_z_height = 0.0
+        self.power_loss_recovery_enabled = True
+
+        # Event handlers
+        self.printer.register_event_handler("klippy:connect", self._handle_connect)
+        self.printer.register_event_handler("klippy:ready", self._handle_ready)
+
+        # G-code commands
+        self.gcode.register_command(
+            "PLR_SAVE_PRINT_STATE_WITH_LAYER",
+            self._handle_layer_change,
+            desc=self.cmd_PLR_SAVE_PRINT_STATE_help
+        )
+        self.gcode.register_command(
+            'PLR_SAVE_PRINT_STATE',
+            self.cmd_PLR_SAVE_PRINT_STATE,
+            desc=self.cmd_PLR_SAVE_PRINT_STATE_help
+        )
+        self.gcode.register_command(
+            'PLR_QUERY_SAVED_STATE',
+            self.cmd_PLR_QUERY_SAVED_STATE,
+            desc=self.cmd_PLR_QUERY_SAVED_STATE_help
+        )
+        self.gcode.register_command(
+            'PLR_RESET_PRINT_DATA',
+            self.cmd_PLR_RESET_PRINT_DATA,
+            desc=self.cmd_PLR_RESET_PRINT_DATA_help
+        )
+        self.gcode.register_command(
+            'PLR_ENABLE',
+            self.cmd_PLR_ENABLE,
+            desc=self.cmd_PLR_ENABLE_help
+        )
+        self.gcode.register_command(
+            'PLR_DISABLE',
+            self.cmd_PLR_DISABLE,
+            desc=self.cmd_PLR_DISABLE_help
+        )
+
+        self.gcode.register_command(
+            'PLR_RESUME_PRINT',
+            self.cmd_PLR_RESUME_PRINT,
+            desc=self.cmd_PLR_RESUME_PRINT_help
+        )
+
+    # ---------------------------------------------------------
+    # Core hooks
+    # ---------------------------------------------------------
+    def _handle_connect(self, eventtime=None):
+        # DO NOT use self.gcode here — it does not exist yet.
+        if self.debug_mode:
+            logging.info("PLR: _handle_connect called")
+
+    def _handle_ready(self, eventtime=None):
+        try:
+            self.toolhead = self.printer.lookup_object('toolhead')
+            self.extruder = self.printer.lookup_object('extruder')
+            self.heater_bed = self.printer.lookup_object('heater_bed', None)
+            self.bed_mesh = self.printer.lookup_object('bed_mesh', None)
+            self.save_variables = self.printer.lookup_object('save_variables')
+
+            if self.part_cooling_fan_name:
+                try:
+                    self.part_cooling_fan = self.printer.lookup_object(
+                        self.part_cooling_fan_name
+                    )
+                except Exception:
+                    self.part_cooling_fan = None
+
+            if self.debug_mode:
+                self.gcode.respond_info("PLR: Ready, core objects loaded")
+        except Exception as e:
+            logging.exception("PLR: Error in _handle_ready")
+            raise
+
+    # ---------------------------------------------------------
+    # State collection and saving
+    # ---------------------------------------------------------
+    def _collect_current_state(self, gcmd=None):
+        self.gcode.respond_info("PLR DEBUG: Entering _collect_current_state")
+    
+        # Extract layer number from the G-code command
+        layer = None
+        if gcmd is not None:
+            layer = gcmd.get_int('LAYER', None)
+        if layer is None:
+            layer = 0
+    
+        # Core object readiness check
+        if not self.toolhead or not self.extruder:
+            if self.debug_mode:
+                self.gcode.respond_info("PLR: Core objects not ready, skipping state collection")
+            return None
+    
+        try:
+            # Position
+            pos = self.toolhead.get_position()
+            x, y, z, e = pos
+    
+            # Extruder temps
+            extruder_status = self.extruder.get_status(self.reactor.monotonic())
+            extruder_temp = extruder_status.get('temperature')
+            extruder_target = extruder_status.get('target')
+    
+            # Bed temps
+            bed_status = self.heater_bed.get_status(self.reactor.monotonic()) if self.heater_bed else {}
+            bed_temp = bed_status.get('temperature', 0.0)
+            bed_target = bed_status.get('target', 0.0)
+    
+            # Fan speed
+            fan_speed = 0.0
+            if self.part_cooling_fan is not None:
+                try:
+                    fan_speed = self.part_cooling_fan.get_status(
+                        self.reactor.monotonic()
+                    ).get('speed', 0.0)
+                except Exception:
+                    fan_speed = 0.0
+    
+            # Pressure advance
+            pa_value = 0.0
+            try:
+                pa_value = self.toolhead.get_status(
+                    self.reactor.monotonic()
+                ).get('pressure_advance', 0.0)
+            except Exception:
+                pa_value = 0.0
+    
+            # Bed mesh
+            mesh_profile = None
+            if self.bed_mesh is not None:
+                try:
+                    mesh_profile = self.bed_mesh.mesh
+                except Exception:
+                    mesh_profile = None
+    
+            # Current file
+            current_file = self.printer.lookup_object('print_stats') \
+                .get_status(self.reactor.monotonic()) \
+                .get('filename', 'unknown')
+    
+            state = {
+                "current_file": current_file,
+                "layer": layer,
+                "position": {"x": x, "y": y, "z": z, "e": e},
+                "hotend_temp": extruder_temp,
+                "bed_temp": bed_temp,
+                "hotend_target": extruder_target,
+                "bed_target": bed_target,
+                "fan_speed": fan_speed,
+                "pressure_advance": pa_value,
+                "bed_mesh": mesh_profile,
+            }
+    
+            if self.debug_mode:
+                self.gcode.respond_info(f"PLR: Collected state: {state}")
+    
+            return state
+    
+        except Exception as e:
+            logging.exception("PLR: Error collecting state")
+            return None
+
+    def _save_current_state(self, gcmd=None):
+        self.gcode.respond_info("PLR DEBUG: Entering _save_current_state")
+    
+        # Collect state
+        state = self._collect_current_state(gcmd)
+        if state is None:
+            self.gcode.respond_info("PLR: No state collected")
+            return
+    
+        # Convert dict → Python literal string
+        state_literal = repr(state)
+    
+        # Save resume_meta_info
+        save_cmd = self.gcode.create_gcode_command(
+            "SAVE_VARIABLE", "SAVE_VARIABLE",
+            {"VARIABLE": "resume_meta_info", "VALUE": state_literal}
+        )
+        self.save_variables.cmd_SAVE_VARIABLE(save_cmd)
+    
+        # Save last_file
+        filename = state.get("current_file", "none")
+        save_last_file = self.gcode.create_gcode_command(
+            "SAVE_VARIABLE", "SAVE_VARIABLE",
+            {"VARIABLE": "last_file", "VALUE": f"'{filename}'"}
+        )
+        self.save_variables.cmd_SAVE_VARIABLE(save_last_file)
+    
+        # Mark interrupted
+        save_interrupted = self.gcode.create_gcode_command(
+            "SAVE_VARIABLE", "SAVE_VARIABLE",
+            {"VARIABLE": "was_interrupted", "VALUE": "True"}
+        )
+        self.save_variables.cmd_SAVE_VARIABLE(save_interrupted)
+    
+        if gcmd:
+            gcmd.respond_info("PLR: State saved")
+        self.gcode.respond_info("PLR: State saved to resume_meta_info")
+    
+    # ---------------------------------------------------------
+    # Layer-change handler (immediate save)
+    # ---------------------------------------------------------
+    def _handle_layer_change(self, gcmd):
+        self.gcode.respond_info("PLR DEBUG: _handle_layer_change fired")
+        self.gcode.respond_info(f"In handle_layer_change")
+
+        # Correct readiness check
+        print_stats = self.printer.lookup_object('print_stats')
+        status = print_stats.get_status(self.reactor.monotonic())
+        state = status.get('state')
+
+
+        self.gcode.respond_info(f"PLR DEBUG: layer change received, state={state}")
+
+        # Allow PLR during "printing" AND "paused" AND "resumed"
+        if state not in ("starting", "printing", "paused", "resumed"):
+            gcmd.respond_info(f"PLR: Ignoring layer change, state={state}")
+            return
+
+
+        # Core object check
+        if not all([self.toolhead, self.extruder, self.save_variables]):
+            gcmd.respond_info("PLR: Core objects not ready yet")
+            return
+
+        self._save_current_state(gcmd)
+
+        # ---------------------------------------------------------
+    # G-code commands
+    # ---------------------------------------------------------
+    def cmd_PLR_SAVE_PRINT_STATE(self, gcmd):
+        gcmd.respond_info("PLR: manual save requested")
+        self._save_current_state(gcmd)
+
+    def cmd_PLR_QUERY_SAVED_STATE(self, gcmd):
+        msg = ["PowerLossRecovery Status:"]
+        msg.append(f"Enabled: {self.power_loss_recovery_enabled}")
+        msg.append(f"Debug Mode: {'Enabled' if self.debug_mode else 'Disabled'}")
+        msg.append(f"Last layer: {self.last_layer}")
+
+        try:
+            val = self.save_variables.get_stored_variable('resume_meta_info')
+            if val:
+                saved_data = json.loads(val)
+                msg.append("")
+                msg.append("Saved state:")
+                msg.append(f"File: {saved_data.get('current_file', 'unknown')}")
+                msg.append(f"Layer: {saved_data.get('layer', 'unknown')}")
+                pos = saved_data.get('position', {})
+                msg.append("Position: X%.1f Y%.1f Z%.1f E%.3f" %
+                           (pos.get('x', 0), pos.get('y', 0),
+                            pos.get('z', 0), pos.get('e', 0)))
+                msg.append("Temps: Hotend=%.1f/%.1f Bed=%.1f/%.1f" %
+                           (saved_data.get('hotend_temp', 0.0),
+                            saved_data.get('hotend_target', 0.0),
+                            saved_data.get('bed_temp', 0.0),
+                            saved_data.get('bed_target', 0.0)))
+                msg.append("Fan speed: %.2f" %
+                           (saved_data.get('fan_speed', 0.0)))
+                msg.append("Pressure advance: %.4f" %
+                           (saved_data.get('pressure_advance', 0.0)))
+        except Exception as e:
+            if self.debug_mode:
+                msg.append(f"Error reading saved state: {e}")
+
+        gcmd.respond_info("\n".join(msg))
+
+    def cmd_PLR_RESET_PRINT_DATA(self, gcmd):
+        if not self.save_variables:
+            gcmd.respond_info("PLR: save_variables not available")
+            return
+
+        try:
+            empty_state = json.dumps({})
+            save_cmd = self.gcode.create_gcode_command(
+                "SAVE_VARIABLE", "SAVE_VARIABLE",
+                {"VARIABLE": "resume_meta_info", "VALUE": empty_state}
+            )
+            self.save_variables.cmd_SAVE_VARIABLE(save_cmd)
+            self.last_layer = 0
+            if self.debug_mode:
+                self.gcode.respond_info("PLR: State reset")
+            gcmd.respond_info("PLR: State reset")
+        except Exception as e:
+            logging.exception("PLR: Error resetting state")
+            gcmd.respond_info(f"PLR ERROR resetting state: {e}")
+
+    def cmd_PLR_ENABLE(self, gcmd):
+        self.power_loss_recovery_enabled = True
+        gcmd.respond_info("PLR: Enabled")
+
+    def cmd_PLR_DISABLE(self, gcmd):
+        self.power_loss_recovery_enabled = False
+        gcmd.respond_info("PLR: Disabled")
+
+    def cmd_PLR_RESUME_PRINT(self, gcmd):
+        if not self.save_variables:
+            gcmd.respond_info("PLR: save_variables not available")
+            return
+
+        try:
+            val = self.save_variables.get_stored_variable('resume_meta_info')
+            if not val:
+                gcmd.respond_info("PLR: No saved state to resume")
+                return
+
+            saved = json.loads(val)
+            pos = saved.get('position', {})
+            x = pos.get('x', None)
+            y = pos.get('y', None)
+            z = pos.get('z', None)
+            e = pos.get('e', None)
+
+            if None in (x, y, z, e):
+                gcmd.respond_info("PLR: Saved position incomplete")
+                return
+
+            # Restore temps
+            if self.resume_restore_temps:
+                hotend_target = saved.get('hotend_target', 0.0)
+                bed_target = saved.get('bed_target', 0.0)
+                if hotend_target > 0.0:
+                    self.gcode.run_script_from_command(f"M104 S{hotend_target:.1f}")
+                if bed_target > 0.0:
+                    self.gcode.run_script_from_command(f"M140 S{bed_target:.1f}")
+
+            # Restore fan
+            if self.resume_restore_fans and self.part_cooling_fan_name:
+                fan_speed = saved.get('fan_speed', 0.0)
+                pct = max(0, min(1.0, fan_speed)) * 255
+                self.gcode.run_script_from_command(f"M106 S{int(pct)}")
+
+            # Restore pressure advance
+            if self.resume_restore_pa:
+                pa_value = saved.get('pressure_advance', 0.0)
+                if pa_value > 0.0:
+                    self.gcode.run_script_from_command(
+                        f"SET_PRESSURE_ADVANCE ADVANCE={pa_value:.4f}"
+                    )
+
+            # Move back to saved XYZ
+            resume_move = f"G0 X{x:.3f} Y{y:.3f} Z{z:.3f} F6000"
+            self.gcode.run_script_from_command(resume_move)
+
+            # Slicer-accurate re-prime using saved E
+            prime_cmd = f"G1 E{e:.3f} F1200"
+            self.gcode.run_script_from_command(prime_cmd)
+
+            gcmd.respond_info("PLR: Resume sequence executed")
+        except Exception as e:
+            logging.exception("PLR: Error in resume")
+            gcmd.respond_info(f"PLR ERROR in resume: {e}")
+

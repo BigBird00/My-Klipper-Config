@@ -1,0 +1,11 @@
+/home/ajs/printer_data/logs/klipper.log
+/home/ajs/printer_data/logs/moonraker.log {
+    daily
+    rotate 1
+    missingok
+    notifempty
+    copytruncate
+    compress
+    delaycompress
+    copytruncate
+}

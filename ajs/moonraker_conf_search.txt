@@ -1,0 +1,94 @@
+/home/ajs/printer_data/logs/moonraker.log-20260404:5:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log-20260404:6:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log-20260404:27:2026-04-03 18:40:55,916 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2236 B
+/home/ajs/printer_data/logs/moonraker.log-20260404:125:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log-20260404:243:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:255:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:267:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:279:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail]: Path `/home/ajs/mainsail` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:291:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:508:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log-20260404:509:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log-20260404:530:2026-04-03 18:41:08,868 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2236 B
+/home/ajs/printer_data/logs/moonraker.log-20260404:628:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log-20260404:746:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:758:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:770:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log-20260404:783:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:5:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:6:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:27:2026-04-04 10:35:04,010 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2349 B
+/home/ajs/printer_data/logs/moonraker.log:130:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:248:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:260:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:272:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:285:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:483:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:484:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:505:2026-04-04 11:55:57,708 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2349 B
+/home/ajs/printer_data/logs/moonraker.log:608:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:726:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:738:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:750:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:763:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:964:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:965:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:986:2026-04-04 12:21:47,450 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2382 B
+/home/ajs/printer_data/logs/moonraker.log:1090:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1208:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1220:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1232:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1245:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1444:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1445:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:1463:launch_args: /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/moonraker/moonraker.py -c /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1466:2026-04-04 12:26:22,876 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2382 B
+/home/ajs/printer_data/logs/moonraker.log:1570:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1688:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1700:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1712:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1725:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:1926:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1927:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:1945:launch_args: /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/moonraker/moonraker.py -c /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:1948:2026-04-04 12:29:42,554 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2380 B
+/home/ajs/printer_data/logs/moonraker.log:2052:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2170:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2182:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2194:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2207:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2410:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2411:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:2429:launch_args: /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/moonraker/moonraker.py -c /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2432:2026-04-04 12:34:20,215 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2383 B
+/home/ajs/printer_data/logs/moonraker.log:2538:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2668:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2680:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2692:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2705:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:2906:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2907:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/logs/moonraker.log:2925:launch_args: /home/ajs/moonraker-env/bin/python /home/ajs/moonraker/moonraker/moonraker.py -c /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:2928:2026-04-04 12:38:09,739 [confighelper.py:read_file()] - Configuration File '/home/ajs/printer_data/config/moonraker.conf' parsed, total size: 2383 B
+/home/ajs/printer_data/logs/moonraker.log:3034:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/logs/moonraker.log:3152:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager mainsail-config]: Path `/home/ajs/mainsail-config` does not exist
+/home/ajs/printer_data/logs/moonraker.log:3164:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+/home/ajs/printer_data/logs/moonraker.log:3176:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager klipper-priority-fix]: Path `/home/ajs/klipper-priority-fix` does not exist
+/home/ajs/printer_data/logs/moonraker.log:3189:moonraker.confighelper.ConfigError: Invalid path for option `path` in section [update_manager led_effect]: Path `/home/ajs/klipper-led_effect` does not exist
+grep: /home/ajs/printer_data/comms/klippy.serial: No such file or directory
+grep: /home/ajs/printer_data/comms/klippy.sock: No such device or address
+grep: /home/ajs/printer_data/comms/moonraker.sock: No such device or address
+/home/ajs/printer_data/treedir.txt:32:│   ├── moonraker.conf
+/home/ajs/printer_data/treedir.txt:33:│   ├── Numbered moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-24:5:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-24:6:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-24:100:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log:5:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log:6:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/printer_data/logs/moonraker.log:100:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-25:5:config_file: /home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-25:6:backup_config: /home/ajs/printer_data/config/.moonraker.conf.bkp
+/home/ajs/printer_data/printer_data/logs/moonraker.log.2026-02-25:100:/home/ajs/printer_data/config/moonraker.conf
+/home/ajs/printer_data/printer_data/treedir.txt:32:│   ├── moonraker.conf
+/home/ajs/printer_data/printer_data/treedir.txt:33:│   ├── Numbered moonraker.conf
+/home/ajs/printer_data/systemd/moonraker.env:1:MOONRAKER_ARGS="/home/ajs/moonraker/moonraker/moonraker.py -c /home/ajs/printer_data/config/moonraker.conf"

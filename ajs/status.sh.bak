@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# status.sh
+
+echo "ver 0.1"
+echo "* * * * * * * * * * * * * * * Klipper -* * * * * * * * * * * * * * *"
+sudo systemctl status klipper --no-pager -l
+
+echo
+echo "* * * * * * * * * * * * * * *  Mainsail (nginx) * * * * * * * * * * * * * * * "
+if systemctl list-units --type=service | grep -q "nginx.service"; then
+	echo "@1"
+    sudo systemctl status nginx --no-pager  -l
+else
+    echo "nginx (Mainsail web server) not found."
+fi
+echo "@2"
+echo
+echo "* * * * * * * * * * * * * * *  Mainsail * * * * * * * * * * * * * * * "
+# Try mainsail, mainsail-web, or caddy
+if systemctl list-units --type=service | grep -q "mainsail.service"; then
+    sudo systemctl status mainsail --no-pager  -l
+elif systemctl list-units --type=service | grep -q "mainsail-web.service"; then
+    sudo systemctl status mainsail-web --no-pager -l
+fi
+echo "@13"
+echo "* * * * * * * * * * * * * * * Moonraker * * * * * * * * * * * * * * * "
+sudo systemctl status moonraker --no-pager -l
+
+# If user passed ANY argument, run deeper diagnostics
+if [ $# -gt 0 ]; then
+	echo
+	echo
+    echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "
+	echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "
+    echo "====== Deep Diagnostics ======"
+
+    echo
+    echo "--- Klipper Logs ---"
+    sudo journalctl -u klipper -n 50 --no-pager
+
+    echo
+    echo "--- Moonraker Logs ---"
+    sudo journalctl -u moonraker -n 50 --no-pager
+
+    echo
+    echo "--- Mainsail Logs ---"
+    if systemctl list-units --type=service | grep -q "mainsail.service"; then
+        sudo journalctl -u mainsail -n 50 --no-pager
+    elif systemctl list-units --type=service | grep -q "mainsail-web.service"; then
+        sudo journalctl -u mainsail-web -n 50 --no-pager
+    else
+        sudo journalctl -u caddy -n 50 --no-pager
+    fi
+else
+	echo "Enter any character after status to get deeper analysis"
+fi

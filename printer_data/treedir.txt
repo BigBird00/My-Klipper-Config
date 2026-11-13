@@ -1,0 +1,79 @@
+.
+├── adx1345.cfg
+├── certs
+├── comms
+│   ├── klippy.serial -> /dev/pts/0
+│   ├── klippy.sock
+│   └── moonraker.sock
+├── config
+│   ├── adx1345.cfg
+│   ├── backup.sh
+│   ├── backup.sh.old
+│   ├── config
+│   ├── klipper-archive.sh
+│   ├── klipper_check_config.py
+│   ├── klipper.xml
+│   ├── logs
+│   │   └── klippy.log
+│   ├── macro_beeper.cfg
+│   ├── macro-bltouch.cfg
+│   ├── macro_end_print.cfg
+│   ├── macro_filament-sensor.cfg
+│   ├── macro_hotend.cfg
+│   ├── macro_neopixel
+│   ├── macro_neopixel.cfg
+│   ├── macro_PauseResumeCancelM600.cfg
+│   ├── macros_ellis.cfg
+│   ├── mainsail.cfg -> /home/ajs/mainsail-config/mainsail.cfg
+│   ├── menu_calibrate.cfg
+│   ├── menu_ellis.cfg
+│   ├── menu_probe.cfg
+│   ├── moonraker.asvc
+│   ├── moonraker.conf
+│   ├── Numbered moonraker.conf
+│   ├── Pause Resume Cancel M600 Macros.cfg
+│   ├── printer-20260201_104529.cfg
+│   ├── printer.cfg
+│   ├── screws_tilt.cfg
+│   ├── serialports.txt
+│   ├── Skew Info from Calitower
+│   ├── start_print.cfg
+│   └── wifi.sh
+├── database
+│   └── moonraker-sql.db
+├── gcodes
+│   ├── 8_x_3_mm_magnet_step_fitter.gcode
+│   ├── Adam_Object(1)_0-07,.gcode
+│   ├── Drawer_Slide_level_tool.gcode
+│   ├── ethernet_plug.gcode
+│   ├── Filament_Extruder_Calibration_Tool_10_0-11,.gcode
+│   ├── Hard_Drive_Conv 2.5-3.5 Dell Cady _2_2-47,.gcode
+│   ├── Hdd_adapter_3-23,.gcode
+│   ├── printed_608_Bearing_shaft.gcode
+│   ├── remove moisture.gcode
+│   ├── scraper_1-40,.gcode
+│   ├── SFS-Mount Creatlity Ender 3 Pro-3.stl
+│   ├── Square_Tolerance .2Hole Test-5_1-31,.gcode
+│   ├── Square_Tolerance_Test .4 -5_1-30,.gcode
+│   ├── t-Nut_Separater_14.1.gcode
+│   ├── t-Nut_Separater_51.76.gcode
+│   └── Toler4ance .1 hole hot exp_3-05,.gcode
+├── logs
+│   ├── klippy.log
+│   ├── klippy.log.2026-02-24
+│   ├── klippy.log.2026-02-25
+│   ├── moonraker.log
+│   ├── moonraker.log.2026-02-24
+│   └── moonraker.log.2026-02-25
+├── macros_ellis.cfg
+├── menu_calibrate.cfg
+├── misc
+│   └── usb.ids
+├── moonraker.asvc
+├── printer.cfg
+├── systemd
+│   ├── klipper.env
+│   └── moonraker.env
+└── treedir.txt
+
+11 directories, 66 files

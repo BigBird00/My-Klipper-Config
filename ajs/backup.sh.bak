@@ -1,0 +1,166 @@
+#!/bin/bash
+set -euo pipefail
+
+########################################
+# USER SETTINGS
+########################################
+BACKUP_DIR="/root/backups"
+KEEP_ARCHIVES=1
+COMPRESSION="auto"
+ENABLE_CHECKSUM=false
+ENABLE_RSYNC=false
+RSYNC_TARGET="backup@nas:/volume1/klipper-backups"
+
+# --- Color codes ---
+GREEN="\e[32m"
+BLUE="\e[34m"
+CYAN="\e[36m"
+RED="\e[31m"
+RESET="\e[0m"
+echoGreen() { echo -e "${GREEN}$*${RESET}"; }
+echoBlue()  { echo -e "${BLUE}$*${RESET}"; }
+echoCyan()  { echo -e "${CYAN}$*${RESET}"; }
+echoRed()   { echo -e "${RED}$*${RESET}"; }
+
+
+DRY_RUN=false
+[[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
+
+########################################
+# Helpers
+########################################
+
+colorEcho() {
+    local color="$1"; shift
+    echo -e "${color}$*${RESET}"
+}
+
+human_size() {
+    size=$(stat -c %s "$1" 2>/dev/null || wc -c < "$1")
+    awk -v s="$size" '
+        function human(x) {
+            if (x >= 1024^3) return sprintf("%.2f GB", x/1024^3)
+            if (x >= 1024^2) return sprintf("%.2f MB", x/1024^2)
+            if (x >= 1024)   return sprintf("%.2f KB", x/1024)
+            return sprintf("%d B", x)
+        }
+        BEGIN { print human(s) }
+    '
+}
+
+
+run() {
+  if $DRY_RUN; then
+    echo "[DRY-RUN] $*"
+  else
+    "$@"
+  fi
+}
+
+# CPU detection
+CPU_CORES=$(nproc)
+ZSTD_LEVEL=3
+ZSTD_THREADS=2
+COMPRESSION="zstd"
+EXT="tar.zst"
+TAR_COMPRESS="zstd -$ZSTD_LEVEL -T$ZSTD_THREADS"
+
+SOURCE="/"
+TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+ARCHIVE_NAME="full_backup_$TIMESTAMP.$EXT"
+ARCHIVE_PATH="$BACKUP_DIR/$ARCHIVE_NAME"
+KLIPPER_ARCHIVE="/home/ajs/klipper-archive.sh"
+
+EXCLUDES=(
+  "$BACKUP_DIR"
+  "*/.cache/*" "/home/ajs/.cache"
+  "/dev"  "/lost+found" 
+  "/media" "/mnt" "/proc" "/run" "/var/run"
+  "/swapfile" 
+  "/sys" "/timeshift" "/tmp" 
+  "/var/tmp" "/var/cache" "/var/lib/snapd" "/var/log" "var/lock"
+  "full_backup*" "*.sock"
+)
+
+TAR_EXCLUDES=()
+for p in "${EXCLUDES[@]}"; do
+  TAR_EXCLUDES+=( "--exclude=$p" )
+done
+
+run sudo mkdir -p "$BACKUP_DIR"
+
+restore() {
+  echo -e "\nRestoring Klipper services..."
+  run "$KLIPPER_ARCHIVE" post || true
+}
+trap restore ERR INT
+
+# Pre-clean
+echo "jounalctl vacuum"
+run sudo journalctl --vacuum-time=5d > /dev/null 2>&1 || true
+
+# Klipper pre-archive
+if [ ! -f "$HOME/.klipper_archive_lock" ]; then
+    run "$KLIPPER_ARCHIVE" pre
+fi
+
+# Estimate size
+echoBlue "Estimating size..."
+TOTAL_SIZE=$(sudo du -sb "${TAR_EXCLUDES[@]}" "$SOURCE" | awk '{print $1}')
+echoBlue "Estimated size: $((TOTAL_SIZE / 1024 / 1024)) MiB"
+
+# Check space
+FREE_BYTES=$(($(df -P "$BACKUP_DIR" | tail -1 | awk '{print $4}') * 1024))
+if (( FREE_BYTES < TOTAL_SIZE )); then
+    echoRed "ERROR: Not enough space."
+    exit 1
+fi
+
+########################################
+# Run backup
+########################################
+echoBlue "Starting backup..."
+
+# We run tar as sudo, then pipe the raw data through pv into the file.
+# Warnings and errors are captured in logs.
+sudo tar -c \
+    --warning=no-file-changed \
+    --ignore-failed-read \
+    --use-compress-program="$TAR_COMPRESS" \
+    "${TAR_EXCLUDES[@]}" \
+    "$SOURCE" \
+    2>tar-errors.log \
+    | pv -s "$TOTAL_SIZE" \
+    > "$ARCHIVE_PATH"
+	
+	
+filesize=$(human_size "$ARCHIVE_PATH")
+echoGreen "Size is $filesize"
+echo "✅ Backup complete: $ARCHIVE_PATH  Size: $filsize"
+echo ""
+echo "Checking For Errors"
+
+echo "    Checking tar-errors.log for significant issues"
+if [ -s tar-errors.log ] && [ $(wc -c < tar-errors.log) -gt 50 ]; then
+    echoRed "Check tar-errors.log for significant issues."
+fi
+
+if $ENABLE_CHECKSUM; then
+  echo "    Calculating Checksum"
+  run sudo sha256sum "$ARCHIVE_PATH" | sudo tee "$ARCHIVE_PATH.sha256" > /dev/null
+fi
+
+echo "    Auto Prune"
+# Auto-prune
+mapfile -t ARCHIVES < <(sudo ls -1t "$BACKUP_DIR"/full_backup_*.$EXT 2>/dev/null || true)
+if (( ${#ARCHIVES[@]} > KEEP_ARCHIVES )); then
+  for old in "${ARCHIVES[@]:KEEP_ARCHIVES}"; do
+    run sudo rm -f "$old" "$old.sha256"
+  done
+fi
+
+echoBlue "    Restoring"
+sudo mkdir /var/log/nginx
+restore
+trap - ERR INT
+echoGreen "✅ Backup complete: $ARCHIVE_PATH"

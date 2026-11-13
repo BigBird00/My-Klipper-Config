@@ -1,0 +1,30 @@
+
+/root/backups/* {
+    daily
+    size 100M
+    maxage 2
+    rotate 2
+    compress
+    delaycompress
+    missingok
+    notifempty
+}
+
+# Clean all logs in /var/log EXCEPT alternatives.log
+/var/log/*.log {
+    daily
+    size 100M
+    maxage 2
+    rotate 2
+    compress
+    delaycompress
+    missingok
+    notifempty
+}
+# Exclude alternatives.log (handled by /etc/logrotate.d/alternatives)
+/var/log/alternatives.log {
+    missingok
+    notifempty
+    rotate 0
+}
+

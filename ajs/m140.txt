@@ -1,0 +1,8 @@
+/home/ajs/printer_data/config/macros_ellis.cfg:  M140 S60
+/home/ajs/printer_data/config/macros_ellis.cfg:  M140 S60
+/home/ajs/printer_data/config/macros_ellis.cfg:  M140 S80
+/home/ajs/printer_data/config/macros_ellis.cfg:  M140 S100
+/home/ajs/printer_data/config/screws_tilt.cfg:    M140 S60          ; set bed temp (change if desired)
+/home/ajs/printer_data/config/macro_end_print.cfg:    M140 S0 ; Turn off bed
+/home/ajs/printer_data/config/menu_ellis.cfg:  M140 S60
+/home/ajs/printer_data/config/start_print.cfg:    M140 S{bed}      # Set bed temp (no wait)

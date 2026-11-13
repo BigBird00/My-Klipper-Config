@@ -1,0 +1,71 @@
+Disk Drive Ubuntu
+
+  lshw -class disk
+  *-disk
+       description: ATA Disk
+       product: FUJITSU MHW2120B
+       physical id: 0.0.0
+       bus info: scsi@1:0.0.0
+       logical name: /dev/sda
+       version: 0012
+       serial: NZ1ZT742GP0M
+       size: 111GiB (120GB)
+       capabilities: gpt-1.00 partitioned partitioned:gpt
+       configuration: ansiversion=5 guid=57960bcb-ed32-47e0-a430-5e2573881862 logicalsectorsize=512 sectorsize=512
+
+
+
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           194M  1.7M  192M   1% /run
+/dev/sda2       110G   26G   79G  25% /
+tmpfs           966M     0  966M   0% /dev/shm
+tmpfs           5.0M  8.0K  5.0M   1% /run/lock
+tmpfs           194M   84K  194M   1% /run/user/1000
+
+   serial: NZ1ZT742GP0M   standard SDA
+   serial: NZ1ZT742GP04		backup SDB
+   
+   
+   Optiplex 3020
+   Tag: F2Ncp52
+   Express Service Code: 32811891014
+
+====================
+PSU
+===================
+Model: D255AS-00
+Ref No. DPS-255KBA
+possible part numbers
+3XRJO 
+FN3MN
+FP16X 
+H1FWX
+HCWV2
+HXRPX
+M9GW7
+NT1XP 
+PJKWN
+R7PPW
+T4GWM
+V9MVK
+YH9D7
+
+
+==================
+pci cards
+========================
+TP-Link PCIe WiFi Card AC600 for Desktop PC
+Dual Band Wireless Internal Network Card(Archer T2E) 
+High-Gain Antenna,
+ MU-MIMO, WPA3, Low Profile, Supports Windows 10/11
+ 
+ ==================
+ Fans
+ =================
+ 
+ 
+ alt" Noctua NF-A9x14 PWM
+ 
+ Fan Type					Dell Part Numbers
+CPU Fan (SFF)				0X9FV3, 0YH2R8, 0KPT1W
+Rear/Fromt/System Fan (SFF)	0GXV1R, 0YH2R8    size 80mm X 20mm

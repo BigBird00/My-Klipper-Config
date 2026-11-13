@@ -1,0 +1,40 @@
+ Klipper SV1
+**User=ajs
+
+Systemd unit klipper.service:
+unit_name: klipper.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['-.mount', 'network-online.target', 'sysinit.target', 'system.slice']
+**After=['system.slice', 'network-online.target', '-.mount', 'systemd-journald.socket', 'basic.target', 'sysinit.target']
+**SupplementaryGroups=[]
+**EnvironmentFiles=[]
+**ExecStart=/home/ajs/klippy-env/bin/python /home/ajs/klipper/klippy/klippy.py -l /home/ajs/printer_data/logs/klippy.log -a /home/ajs/printer_data/comms/klippy.sock /home/ajs/printer_data/config/printer.cfg
+**WorkingDirectory=/home/ajs/klipper
+**FragmentPath=/etc/systemd/system/klipper.service
+**Description=Klipper Firmware Service
+**User=ajs
+Git Repo moonraker: No warnings detected
+Git Repo klipper: Warnings detected:
+  Repo is dirty.  Detected the following modified files: ['klippy/extras/__init__.py', 'klippy/klippy.py']
+  Repo has untracked source files: ['klippy/extras/gcode_shell_command.py', 'klippy/extras/power_loss_recovery.py']
+Klipper Version: v0.13.0-730-g84104bbbd-dirty
+2026-11-01 09:48:25,669 [server.py:_process_event()] - 
+Error processing callback in event job_state:state_changed
+Traceback (most recent call last):
+  File "/home/ajs/moonraker/moonraker/components/history.py", line 386, in _on_job_state_changed
+    await self.finish_job("completed", new_stats)
+  File "/home/ajs/moonraker/moonraker/components/history.py", line 478, in finish_job
+    await self.save_job(self.current_job, self.current_job_id)
+  File "/home/ajs/moonraker/moonraker/components/history.py", line 448, in save_job
+    cursor = await tx.execute(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/ajs/moonraker/moonraker/components/database.py", line 786, in run
+    ret = func(conn, *args)
+          ^^^^^^^^^^^^^^^^^
+  File "/home/ajs/moonraker/moonraker/components/database.py", line 1258, in sql_execute
+    cur = conn.execute(statement, params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database or disk is full
+

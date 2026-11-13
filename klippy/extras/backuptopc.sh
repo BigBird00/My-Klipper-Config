@@ -1,0 +1,158 @@
+#!/bin/bash
+set +H   # disable history expansion so '!' is safe
+
+Version="0.1a"
+echo "Backup To PC Version $Version"
+### CONFIGURATION ###
+SHARE_NAME="Ubuntu-Backup"
+MOUNT_POINT="/mnt/winbackup"
+WINDOWS_HOST1="AlansPCHP"
+WINDOWS_HOST2="DESKTOP-37L5Q67"
+CRED_FILE="/home/ajs/smb_credentials.txt"
+BACKUP_NAME="full_backup_$(date +%F___%H-%M-%S).tar.xz"
+ARCHIVE_PATH="$MOUNT_POINT/$BACKUP_NAME"
+
+ZSTD_LEVEL=3
+ZSTD_THREADS=0
+TAR_COMPRESS="xz -3 -T0"
+#  -3 = medium compression (good balance)
+#  -9 = maximum compression (very slow)
+# -T0 = use all CPU cores (xz supports multithreading!)
+#TAR_COMPRESS="zstd -$ZSTD_LEVEL -T$ZSTD_THREADS"
+
+BACKUP_DIR="/root/backups"
+
+SOURCE="/"
+EXCLUDES=(
+  "$BACKUP_DIR"
+  "*/.cache/*" "/home/ajs/.cache"
+  "/dev/*" "/proc/*" "/sys/*" "/tmp/*" "/run/*" "/mnt/*" "/media/*"
+  "/lost+found" "/swapfile" "/timeshift"
+  "/var/tmp/*" "/var/cache/*" "/var/lib/snapd/*" "/var/log/*" "/var/lock"
+   "*.sock"
+)
+
+
+### FUNCTIONS ###
+
+error() {
+    echo -e "\e[31m    [ERROR]\e[0m $1"
+    exit 1
+}
+
+warn() {
+    echo -e "\e[33m    [WARNING]\e[0m $1"
+}
+
+info() {
+    echo -e "\e[32m    [INFO]\e[0m $*"
+}
+
+
+
+TAR_EXCLUDES=()
+for p in "${EXCLUDES[@]}"; do
+  TAR_EXCLUDES+=( "--exclude=$p" )
+  TAR_EXCLUDES_LIST="$TAR_EXCLUDES_LIST $p"
+done
+
+
+
+
+
+### STEP 1 — READ CREDENTIALS ###
+echo "    Read Credentials"
+if [[ ! -f "$CRED_FILE" ]]; then
+    error "        Credential file not found: $CRED_FILE"
+fi
+
+USERNAME=$(sed -n '1p' "$CRED_FILE")
+#echo "        Set User $USERNAME"
+PASSWORD=$(sed -n '2p' "$CRED_FILE")
+PASSWORD="${PASSWORD//!/\\!}"
+
+#echo "        Set PW $PASSWORD"
+
+if [[ -z "$USERNAME" || -z "$PASSWORD" ]]; then
+    error "Credential file missing username or password"
+fi
+
+info "    Loaded SMB credentials."
+
+### STEP 2 — RESOLVE WINDOWS PC IP ###
+echo "    Resolve PC IP"
+info "    Resolving IP for $WINDOWS_HOST1..."
+
+WIN_IP=$(nmblookup "$WINDOWS_HOST1" | awk '/<00>/{print $1}')
+
+if [[ -z "$WIN_IP" ]]; then
+    info "    Couldn't Resolve IP for $WINDOWS_HOST1, Trying $WINDOWS_HOST2"
+    WIN_IP=$(nmblookup "$WINDOWS_HOST2" | awk '/<00>/{print $1}')
+    if [[ -z "$WIN_IP" ]]; then
+         error "    Could not resolve IP for $WINDOWS_HOST1 OR $WINDOWS_HOST2 via nmblookup."
+    fi
+fi
+
+info "    Resolved Windows PC IP: $WIN_IP"
+
+### STEP 3 — ENSURE MOUNT POINT EXISTS ###
+echo "        ENSURE MOUNT POINT EXISTS"
+sudo mkdir -p "$MOUNT_POINT"
+
+### STEP 4 — MOUNT WINDOWS SHARE ###
+info "    Mounting Windows share...@1"
+
+if mountpoint -q "$MOUNT_POINT"; then
+    info "     Windows share already mounted."
+else
+    info "    Windows Share is not mounted ...... Mounting Windows share..."
+    sudo mount -t cifs "//$WIN_IP/$SHARE_NAME" "$MOUNT_POINT" \
+        -o credentials=/home/ajs/.smbcred,vers=3.0,uid=$(id -u),gid=$(id -g),file_mode=0777,dir_mode=0777
+
+fi
+
+if [[ $? -ne 0 ]]; then
+    error "    Failed to mount Windows share."
+fi
+
+info "    Share mounted successfully."
+
+### STEP 5 — RUN BACKUP ###
+info "    Starting backup..."
+
+info "        TarCompress: $TAR_COMPRESS"
+info "        TarExcludes: ${TAR_EXCLUDES[@]}"
+#info "        TarExcludesList: $TAR_EXCLUDES_LIST"
+info "        Source: $SOURCE"
+info "        ArchivePath: $ARCHIVE_PATH"
+info "    Starting execution of TAR command now:"
+set -x
+sudo tar -c \
+    --warning=no-file-changed \
+    --warning=no-file-ignored \
+    --ignore-failed-read \
+    --use-compress-program="$TAR_COMPRESS" \
+    "${TAR_EXCLUDES[@]}" \
+    "$SOURCE" \
+    2> "$MOUNT_POINT/tar-errors.log" \
+| pv > "$ARCHIVE_PATH"
+set +x
+
+
+if [[ $? -ne 0 ]]; then
+    warn "    Backup encountered errors. Check tar-errors.log on the Windows share."
+else
+    info "    Backup completed successfully: $ARCHIVE_PATH"
+fi
+
+### STEP 6 — UNMOUNT ###
+info "    Unmounting share..."
+sudo umount "$MOUNT_POINT"
+
+if [[ $? -ne 0 ]]; then
+    warn "    Could not unmount $MOUNT_POINT. You may need to unmount manually."
+else
+    info "    Share unmounted cleanly."
+fi
+
+info "Backup script finished."
